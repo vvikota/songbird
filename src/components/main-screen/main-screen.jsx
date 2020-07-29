@@ -1,4 +1,5 @@
 import React from "react";
+import './main-screen.css';
 
 import Header from '../header/header.jsx';
 import CurrentQuestion from "../current-question/current-question.jsx";

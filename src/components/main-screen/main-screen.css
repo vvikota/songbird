@@ -1,0 +1,19 @@
+.next-level-button{
+  width: 100%;
+  color: #ffffff;
+  border-radius: 5px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border: 1px solid #444444;
+  background-color: #303030;
+}
+
+.next-level-button--active{
+  background-color: #00bc8c;
+  border: 1px solid #00bc8c;
+  cursor: pointer;
+}
+
+.next-level-button--active:hover{
+  background-color: #00efb2;
+}
