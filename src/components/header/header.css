@@ -35,3 +35,34 @@
   background-color: #00bc8c;
 }
 
+@media(max-width: 980px){
+  .category-questions {
+    flex-wrap: wrap;
+  }
+
+  .category-questions__item {
+    width: calc(100% / 3);
+  }
+}
+
+@media(max-width: 580px){
+  .category-questions__item {
+    width: calc(100% / 2);
+  }
+}
+
+
+@media(max-width: 420px){
+  .category-questions__item {
+    width: 100%;
+  }
+
+  .top-header {
+    flex-direction: column;
+  }
+  
+  .point-counter{
+    margin-top: 15px;
+  }
+}
+

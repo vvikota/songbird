@@ -1,17 +1,28 @@
 import React from "react";
+import "./bird-description.css";
+
+import plug from "../../assets/images/answer-pic.jpg";
 
 const BirdDescription = () => {
   return <section className="bird-description">
     <div className="bird-description__top">
-      <div className="bird-description__image"></div> 
-      <div>
-        <h3 className="bird-description__title">
-          Клёст
-        </h3>
-        <span className="bird-description__latin">
-          Loxia curvirostra
-        </span>
-        <div className="bird-description__player"></div>
+      
+      <img src={plug} alt="bird" className="bird-description__image" />  
+      
+      <div className="bird-description__name-block">
+        <div className="bird-description__title-wrapper">
+          <h3 className="bird-description__title">
+            Клёст
+          </h3>
+        </div>
+        
+        <div className="bird-description__latin-wrapper">
+          <span className="bird-description__latin">
+            Loxia curvirostra
+          </span>
+        </div>
+
+        <div className="bird-description__player">Player</div>
       </div>
     </div>
     <div className="bird-description__text">
