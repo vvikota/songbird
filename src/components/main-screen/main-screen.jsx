@@ -6,7 +6,8 @@ import CurrentQuestion from "../current-question/current-question.jsx";
 import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
-const MainScreen = () => {
+const MainScreen = (props) => {
+  console.log(props)
   return <>
     <Header />
     <CurrentQuestion />
