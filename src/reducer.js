@@ -4,6 +4,7 @@ const initialState = {
   currenQuestion: 0,
   questions: [],
   score: 0,
+  isCorrectAnswer: false,
 }
 
 const ActionCreator = {

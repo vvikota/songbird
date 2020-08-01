@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo-songbird.svg';
 
 const Header = (props) => {
   const {categories, currenQuestion, score} = props;
-  console.log(currenQuestion)
+  // console.log(currenQuestion)
 
   return <header>
     <div className="top-header">

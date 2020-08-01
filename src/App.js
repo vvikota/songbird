@@ -21,6 +21,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currenQuestion: state.currenQuestion,
   questions: state.questions,
   score: state.score,
+  isCorrectAnswer: state.isCorrectAnswer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

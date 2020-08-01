@@ -7,11 +7,15 @@ import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
 const MainScreen = (props) => {
-  // console.log(props)
-  const {questions, currenQuestion, score} = props;
+  const {questions, currenQuestion, score, isCorrectAnswer} = props;
+  // console.log(questions)
 
   const categories = questions.map(question => question.category);
-  // console.log(questions[])
+  let dataCurrentQuestions = questions[currenQuestion].data;
+  
+  let rand = Math.floor(Math.random() * 6);
+  let currentAnswerData = dataCurrentQuestions[rand]
+  // console.log(currentAnswer)
 
   return <>
     <Header 
@@ -19,9 +23,14 @@ const MainScreen = (props) => {
       currenQuestion={currenQuestion}  
       score={score}
     />
-    <CurrentQuestion />
+    <CurrentQuestion 
+      currentAnswerData={currentAnswerData}
+      isCorrectAnswer={isCorrectAnswer}
+    />
     <section className="answer-section">
-      <Answers />
+      <Answers 
+        dataCurrentQuestions={dataCurrentQuestions}
+      />
       <BirdDescription />
     </section>
     <button className="next-level-button">Next level </button>
