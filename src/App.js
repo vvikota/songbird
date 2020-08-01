@@ -1,13 +1,32 @@
 import React from 'react';
-import MainScreen from "./components/main-screen/main-screen.jsx";
-import birdsData from "./mock/mockData.js";
+import {connect} from "react-redux";
+import {ActionCreator} from "./reducer";
 
-function App() {
+import MainScreen from "./components/main-screen/main-screen.jsx";
+
+function App(props) {
+  // console.log(props)
+  // const {questions} = props;
+
   return (
     <div className="App">
-      <MainScreen data={birdsData}/>
+      <MainScreen
+        {...props}
+      />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  currenQuestion: state.currenQuestion,
+  questions: state.questions,
+  score: state.score,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onNextLevelClick: () => dispatch(ActionCreator.changeCurrentQuestion()),
+});
+
+export {App};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

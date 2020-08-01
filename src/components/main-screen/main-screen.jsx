@@ -7,9 +7,18 @@ import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
 const MainScreen = (props) => {
-  console.log(props)
+  // console.log(props)
+  const {questions, currenQuestion, score} = props;
+
+  const categories = questions.map(question => question.category);
+  // console.log(questions[])
+
   return <>
-    <Header />
+    <Header 
+      categories={categories}
+      currenQuestion={currenQuestion}  
+      score={score}
+    />
     <CurrentQuestion />
     <section className="answer-section">
       <Answers />

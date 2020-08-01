@@ -1,4 +1,4 @@
-const birdsData = [
+const questions = [
   {category: `Разминка`,
     data: [       
       {
@@ -264,7 +264,7 @@ const birdsData = [
     ]
   },
 
-  { category: `Хищные птицы`,
+  { category: `Морские птицы`,
     data: [
     {
       id: 1,
@@ -318,4 +318,4 @@ const birdsData = [
   }  
 ];
 
-export default birdsData;
+export default questions;
