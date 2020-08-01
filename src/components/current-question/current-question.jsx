@@ -4,7 +4,7 @@ import "./current-question.css";
 import altPic from '../../assets/images/alt_bird.jpg';
 
 const CurrentQuestion = (props) => {
-  console.log(props)
+  // console.log(props)
   const {currentAnswerData, isCorrectAnswer} = props;
 
   return <section className="current-question">

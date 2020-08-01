@@ -31,7 +31,9 @@ const MainScreen = (props) => {
       <Answers 
         dataCurrentQuestions={dataCurrentQuestions}
       />
-      <BirdDescription />
+      <BirdDescription 
+        currentAnswerData={currentAnswerData}
+      />
     </section>
     <button className="next-level-button">Next level </button>
   </>
