@@ -18,14 +18,18 @@ function App(props) {
 }
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currenQuestion: state.currenQuestion,
+  currenCategory: state.currenCategory,
   questions: state.questions,
   score: state.score,
   isCorrectAnswer: state.isCorrectAnswer,
+  isStartLevel: state.isStartLevel,
+  activeAnswer: state.activeAnswer,
+  correctAnswer: state.correctAnswer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onNextLevelClick: () => dispatch(ActionCreator.changeCurrentQuestion()),
+  onVariantClick: (answer) => dispatch(ActionCreator.chooseVariant(answer))
 });
 
 export {App};

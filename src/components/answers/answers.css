@@ -21,6 +21,10 @@
   font-size: 17px;
 }
 
+.answers-item:focus{
+  outline: none;
+}
+
 .answers-item:last-child{
   border-bottom: none;
 }

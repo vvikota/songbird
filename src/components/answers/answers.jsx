@@ -2,14 +2,21 @@ import React from "react";
 import "./answers.css";
 
 const Answers = (props) => {
-  const {dataCurrentQuestions} = props;
+  const {
+    currentAnswerVariants,
+    onVariantClick
+  } = props;
   return <section className="answers">
-    {dataCurrentQuestions.map((currentQuestion, id) => {
+    {currentAnswerVariants.map((currentAnswer, id) => {
+      // console.log(currentQuestion.name)
 
       return <button 
                 className="answers-item"
-                key={id}>
-                {currentQuestion.name}
+                key={id}
+                onClick={() => onVariantClick(currentAnswer)}
+              >
+              {currentAnswer}
+                
               </button>
     })}
 

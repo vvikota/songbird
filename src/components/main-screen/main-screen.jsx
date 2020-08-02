@@ -7,32 +7,48 @@ import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
 const MainScreen = (props) => {
-  const {questions, currenQuestion, score, isCorrectAnswer} = props;
+  const {
+    questions,
+    currenCategory,
+    score,
+    isCorrectAnswer,
+    isStartLevel,
+    onVariantClick,
+    activeAnswer,
+    correctAnswer,
+  } = props;
   // console.log(questions)
 
   const categories = questions.map(question => question.category);
-  let dataCurrentQuestions = questions[currenQuestion].data;
+  const dataCurrentQuestion = questions[currenCategory].data;
+  const currentAnswerVariants = dataCurrentQuestion.map(answer => answer.name)
   
-  let rand = Math.floor(Math.random() * 6);
-  let currentAnswerData = dataCurrentQuestions[rand]
-  // console.log(currentAnswer)
+  // let rand = Math.floor(Math.random() * 6);
+  // let currentAnswerData = dataCurrentQuestion[rand]
+  // console.log(activeAnswer)
+  // console.log(currentAnswerData)
+
+  let activeAnswerData = dataCurrentQuestion.filter(item => item.name === activeAnswer)[0];
+  // console.log(currentAnswerVariants)
 
   return <>
     <Header 
       categories={categories}
-      currenQuestion={currenQuestion}  
+      currenCategory={currenCategory}  
       score={score}
     />
     <CurrentQuestion 
-      currentAnswerData={currentAnswerData}
+      correctAnswer={correctAnswer}
       isCorrectAnswer={isCorrectAnswer}
     />
     <section className="answer-section">
       <Answers 
-        dataCurrentQuestions={dataCurrentQuestions}
+        currentAnswerVariants={currentAnswerVariants}
+        onVariantClick={onVariantClick}
       />
       <BirdDescription 
-        currentAnswerData={currentAnswerData}
+        activeAnswerData={activeAnswerData}
+        isStartLevel={isStartLevel}
       />
     </section>
     <button className="next-level-button">Next level </button>

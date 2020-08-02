@@ -4,8 +4,12 @@ import './header.css';
 import logo from '../../assets/images/logo-songbird.svg';
 
 const Header = (props) => {
-  const {categories, currenQuestion, score} = props;
-  // console.log(currenQuestion)
+  const {
+    categories,
+    currenCategory,
+    score
+  } = props;
+  // console.log(currenCategory)
 
   return <header>
     <div className="top-header">
@@ -16,7 +20,7 @@ const Header = (props) => {
     <div className="category-questions">
       {categories.map((category, id) => {
         
-        const activeClass = currenQuestion === id ? ` category-questions__item--active` : ``;
+        const activeClass = currenCategory === id ? ` category-questions__item--active` : ``;
 
         return <span 
             className={`category-questions__item` + activeClass}
