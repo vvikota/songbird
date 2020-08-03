@@ -16,6 +16,7 @@ const ActionType = {
   LOAD_CORRECT_ANSWER: `LOAD_CORRECT_ANSWER`,
   CHOOSE_VARIANT: `CHOOSE_VARIAN`,
   CHANGE_ANSWER_STATUS: `CHANGE_ANSWER_STATUS`,
+  INCREMENT_SCORE: `INCREMENT_SCORE`,
 }
 
 const ActionCreator = {
@@ -48,6 +49,11 @@ const ActionCreator = {
   changeAnswerStatus: () => ({
     type: ActionType.CHANGE_ANSWER_STATUS,
   }),
+
+  incrementScore: (numberOfPoints) => ({
+    type: ActionType.INCREMENT_SCORE,
+    payload: numberOfPoints,
+  })
 }
 
 const reducer = (state = initialState , action) => {
@@ -73,6 +79,10 @@ const reducer = (state = initialState , action) => {
 
     case ActionType.CHANGE_ANSWER_STATUS: return Object.assign({}, state, {
       isCorrectAnswer: true
+    });
+
+    case ActionType.INCREMENT_SCORE: return Object.assign({}, state, {
+      score: state.score + action.payload,
     });
 
     default: 

@@ -22,6 +22,7 @@ class MainScreen extends React.PureComponent {
       activeAnswerData,
       onNextLevelClick,
       changeAnswerStatus,
+      incrementScore,
     } = this.props;
 
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
@@ -44,6 +45,7 @@ class MainScreen extends React.PureComponent {
           changeAnswerStatus={changeAnswerStatus}
           isStartLevel={isStartLevel}
           isCorrectAnswer={isCorrectAnswer}
+          incrementScore={incrementScore}
         />
         <BirdDescription 
           activeAnswerData={activeAnswerData}

@@ -60,6 +60,10 @@ const mapDispatchToProps = (dispatch) => ({
   getFirstCorrectAnswer: (questions, currenCategory) => {
     dispatch(MainActionCreator.loadCorrectAnswer(questions, currenCategory))
   },  
+
+  incrementScore: (numberOfPoints) => {
+    dispatch(MainActionCreator.incrementScore(numberOfPoints))
+  }
 });
 
 export {App};

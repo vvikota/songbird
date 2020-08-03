@@ -34,9 +34,10 @@ class Answers extends React.PureComponent {
       onVariantClick,
       correctAnswer,
       changeAnswerStatus,
-      isCorrectAnswer
+      isCorrectAnswer,
+      incrementScore,
     } = this.props;
-    // console.log(correctAnswer)
+    console.log(correctAnswer)
 
     const processUserAnswer = (currentAnswer, id) => {
       if (!isCorrectAnswer){
@@ -51,7 +52,10 @@ class Answers extends React.PureComponent {
         } 
   
         if(currentAnswer === correctAnswer){
-          changeAnswerStatus()
+          changeAnswerStatus();
+           
+          const rezultScore = this.state.userAnswer.filter(item => item === `empty`).length - 1;
+          incrementScore(rezultScore)
         } 
         onVariantClick(currentAnswer);
       }
