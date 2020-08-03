@@ -43,11 +43,20 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onVariantClick: (answer) => dispatch(MainActionCreator.chooseVariant(answer)),
+  onVariantClick: (answer) => {
+    dispatch(MainActionCreator.chooseVariant(answer))
+  },
+
+  changeAnswerStatus: () => {
+    dispatch(MainActionCreator.changeAnswerStatus())
+  },
+  
   onNextLevelClick: (dataCurrentQuestion, currenCategory) => {
     dispatch(MainActionCreator.changeCurrentCategory())
     dispatch(MainActionCreator.loadCorrectAnswer(dataCurrentQuestion, currenCategory + 1))
   },
+
+
   getFirstCorrectAnswer: (questions, currenCategory) => {
     dispatch(MainActionCreator.loadCorrectAnswer(questions, currenCategory))
   },  
