@@ -17,6 +17,10 @@
   background-color: #303030;
 }
 
+.next-level-button:focus{
+  outline: none;
+}
+
 .next-level-button--active{
   background-color: #00bc8c;
   border: 1px solid #00bc8c;

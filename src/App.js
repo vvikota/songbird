@@ -1,6 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {ActionCreator} from "./reducer";
+import {getQuestions} from "./reducer/main/selectors";
+import {getCurrenCategory} from "./reducer/main/selectors";
+import {getScore} from "./reducer/main/selectors";
+import {getIsCorrectAnswer} from "./reducer/main/selectors";
+import {getIsStartLevel} from "./reducer/main/selectors";
+import {getActiveAnswer} from "./reducer/main/selectors";
+import {getCorrectAnswer} from "./reducer/main/selectors";
+import {getCategories} from "./reducer/main/selectors";
+import {getDataCurrentQuestion} from "./reducer/main/selectors";
+import {getCurrentAnswerVariants} from "./reducer/main/selectors";
+import {getActiveAnswerData} from "./reducer/main/selectors";
+import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 
 import MainScreen from "./components/main-screen/main-screen.jsx";
 
@@ -18,18 +29,22 @@ function App(props) {
 }
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currenCategory: state.currenCategory,
-  questions: state.questions,
-  score: state.score,
-  isCorrectAnswer: state.isCorrectAnswer,
-  isStartLevel: state.isStartLevel,
-  activeAnswer: state.activeAnswer,
-  correctAnswer: state.correctAnswer,
+  currenCategory: getCurrenCategory(state),
+  currenCategoryData: getDataCurrentQuestion(state),
+  answerVariants: getCurrentAnswerVariants(state),
+  questions: getQuestions(state),
+  score: getScore(state),
+  isCorrectAnswer: getIsCorrectAnswer(state),
+  isStartLevel: getIsStartLevel(state),
+  activeAnswer: getActiveAnswer(state),
+  correctAnswer: getCorrectAnswer(state),
+  categories: getCategories(state),
+  activeAnswerData: getActiveAnswerData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onNextLevelClick: () => dispatch(ActionCreator.changeCurrentQuestion()),
-  onVariantClick: (answer) => dispatch(ActionCreator.chooseVariant(answer))
+  onNextLevelClick: () => dispatch(MainActionCreator.changeCurrentQuestion()),
+  onVariantClick: (answer) => dispatch(MainActionCreator.chooseVariant(answer))
 });
 
 export {App};

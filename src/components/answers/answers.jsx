@@ -3,11 +3,11 @@ import "./answers.css";
 
 const Answers = (props) => {
   const {
-    currentAnswerVariants,
+    answerVariants,
     onVariantClick
   } = props;
   return <section className="answers">
-    {currentAnswerVariants.map((currentAnswer, id) => {
+    {answerVariants.map((currentAnswer, id) => {
       // console.log(currentQuestion.name)
 
       return <button 

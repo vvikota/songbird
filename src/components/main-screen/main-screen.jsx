@@ -7,29 +7,23 @@ import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
 const MainScreen = (props) => {
+  // console.log(props)
   const {
-    questions,
+    // questions,
     currenCategory,
     score,
     isCorrectAnswer,
     isStartLevel,
     onVariantClick,
-    activeAnswer,
+    // activeAnswer,
     correctAnswer,
+    categories,
+    // currenCategoryData,
+    answerVariants,
+    activeAnswerData
   } = props;
-  // console.log(questions)
-
-  const categories = questions.map(question => question.category);
-  const dataCurrentQuestion = questions[currenCategory].data;
-  const currentAnswerVariants = dataCurrentQuestion.map(answer => answer.name)
-  
-  // let rand = Math.floor(Math.random() * 6);
-  // let currentAnswerData = dataCurrentQuestion[rand]
-  // console.log(activeAnswer)
-  // console.log(currentAnswerData)
-
-  let activeAnswerData = dataCurrentQuestion.filter(item => item.name === activeAnswer)[0];
-  // console.log(currentAnswerVariants)
+  // console.log(currenCategoryData)
+  const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
 
   return <>
     <Header 
@@ -43,7 +37,7 @@ const MainScreen = (props) => {
     />
     <section className="answer-section">
       <Answers 
-        currentAnswerVariants={currentAnswerVariants}
+        answerVariants={answerVariants}
         onVariantClick={onVariantClick}
       />
       <BirdDescription 
@@ -51,7 +45,11 @@ const MainScreen = (props) => {
         isStartLevel={isStartLevel}
       />
     </section>
-    <button className="next-level-button">Next level </button>
+    <button
+      className={`next-level-button` + activeClassForButton}
+    >
+      Next level
+    </button>
   </>
 }
 

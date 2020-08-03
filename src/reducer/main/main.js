@@ -1,8 +1,8 @@
-import questions from "./mock/mockData";
+import questions from "../../mock/mockData";
 
 const initialState = {
   questions: [],
-  currenCategory: 3,
+  currenCategory: 0,
   score: 0,
   isCorrectAnswer: true,
   isStartLevel: true,
