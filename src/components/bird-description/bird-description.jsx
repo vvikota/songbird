@@ -3,7 +3,7 @@ import "./bird-description.css";
 
 const BirdDescription = (props) => {
   const {activeAnswerData, isStartLevel} = props;
-  // console.log(currentAnswerData)
+  // console.log(props)
 
   return <section className="bird-description">
     {

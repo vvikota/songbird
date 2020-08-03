@@ -21,16 +21,15 @@ const ActionCreator = {
     payload: questions,
   }),
 
-  loadCorrectAnswer: () => {
-    // console.log(initialState.currenCategory)
-    const dataCurrentQuestion = questions[initialState.currenCategory].data;
-    const rand = Math.floor(Math.random() * 6);
-    const currentAnswerData = dataCurrentQuestion[rand]
+  loadCorrectAnswer: (data, currenCategory) => {
+    
+    const curentCategoryData = data[currenCategory].data; 
+    const random = Math.floor(Math.random() * 6);
+    const currentAnswerData = curentCategoryData[random];
 
     return {
       type: `LOAD_CORRECT_ANSWER`,
       payload: currentAnswerData,
-      // payload: 1,
     }
   },
 
@@ -44,7 +43,8 @@ const ActionCreator = {
 const reducer = (state = initialState , action) => {
   switch (action.type) {
     case `CHANGE_CURRENT_CATEGORY`: return Object.assign({}, state, {
-      currenCategory: state.currenCategory + action.payload
+      currenCategory: state.currenCategory + action.payload,
+      isStartLevel: true,
     });
 
     case `LOAD_QUESTIONS`: return Object.assign({}, state, {

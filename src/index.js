@@ -18,7 +18,6 @@ const init = () => {
   );
 
   store.dispatch(MainActionCreator.loadQuestions());
-  store.dispatch(MainActionCreator.loadCorrectAnswer());
 
   ReactDOM.render(<Provider store={store}>
 
