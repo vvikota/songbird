@@ -1,5 +1,6 @@
 import React from "react";
 import "./current-question.css";
+import AudioPlayer from "../player/player";
 
 import altPic from '../../assets/images/alt_bird.jpg';
 
@@ -21,7 +22,7 @@ const CurrentQuestion = (props) => {
       </div>
       
       <div className="current-question__player">
-        Player
+        <AudioPlayer />
       </div>
     </div>
 

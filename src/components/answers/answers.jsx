@@ -69,7 +69,6 @@ class Answers extends React.PureComponent {
                 onClick={() => processUserAnswer(currentAnswer, id)}
               >
               {currentAnswer}
-                
               </button>
     })}
   </section>
