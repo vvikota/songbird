@@ -9,19 +9,13 @@ class Answers extends React.PureComponent {
 
     this.state = {
       userAnswer: new Array(answerVariants.length).fill(`empty`),
-      isNeedUpdate: false,
     };
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
 
-    if(this.props.isStartLevel === true && this.state.isNeedUpdate === true){
+    if(prevProps.isStartLevel === false && this.props.isStartLevel === true){
       const userAnswer = new Array(this.props.answerVariants.length).fill(`empty`);
-
-      this.setState((state) => {
-        return {isNeedUpdate: false}
-      });
-
       this.setState((state) => {
         return {userAnswer: userAnswer}
       })
@@ -37,7 +31,7 @@ class Answers extends React.PureComponent {
       isCorrectAnswer,
       incrementScore,
     } = this.props;
-    console.log(correctAnswer)
+    // console.log(correctAnswer)
 
     const processUserAnswer = (currentAnswer, id) => {
       if (!isCorrectAnswer){
@@ -46,9 +40,6 @@ class Answers extends React.PureComponent {
         if(userAnswer[id] === `empty`){
           userAnswer[id] = currentAnswer
           this.setState({userAnswer})
-          this.setState((state) => {
-            return {isNeedUpdate: true}
-          })
         } 
   
         if(currentAnswer === correctAnswer){
@@ -57,8 +48,9 @@ class Answers extends React.PureComponent {
           const rezultScore = this.state.userAnswer.filter(item => item === `empty`).length - 1;
           incrementScore(rezultScore)
         } 
-        onVariantClick(currentAnswer);
-      }
+      } 
+
+      onVariantClick(currentAnswer);
     }
 
     const classForButton = (id) => {
