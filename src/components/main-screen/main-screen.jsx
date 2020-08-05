@@ -7,8 +7,17 @@ import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
 
 class MainScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isPlaying: false,
+    };
+  }
 
   render() {
+    const {isPlaying} = this.state;
+    
     const {
       questions,
       currenCategory,
@@ -25,7 +34,10 @@ class MainScreen extends React.PureComponent {
       incrementScore,
     } = this.props;
 
+    const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
+
+    // console.log(`mainScreen isPlaying ${this.state.isPlaying}`);
 
     return <>
       <Header 
@@ -36,6 +48,9 @@ class MainScreen extends React.PureComponent {
       <CurrentQuestion 
         correctAnswer={correctAnswer}
         isCorrectAnswer={isCorrectAnswer}
+        isPlaying = {isPlaying}
+        onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
+        src = {audio}
       />
       <section className="answer-section">
         <Answers 

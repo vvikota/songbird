@@ -6,7 +6,16 @@ import altPic from '../../assets/images/alt_bird.jpg';
 
 const CurrentQuestion = (props) => {
   // console.log(props)
-  const {correctAnswer, isCorrectAnswer} = props;
+  const {
+    correctAnswer,
+    isCorrectAnswer,
+    isPlaying,
+    onPlayButtonClick,
+    // src
+  } = props;
+
+  const src = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`
+  // console.log(src);
 
   return <section className="current-question">
     <img
@@ -22,7 +31,11 @@ const CurrentQuestion = (props) => {
       </div>
       
       <div className="current-question__player">
-        <AudioPlayer />
+        <AudioPlayer 
+          isPlaying = {isPlaying}
+          onPlayButtonClick = {onPlayButtonClick}
+          src = {src}
+        />
       </div>
     </div>
 

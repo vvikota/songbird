@@ -1,0 +1,61 @@
+.player-component__wrapper {
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.track__button {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #00bc8c;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.track__button svg {
+  width: 20px;
+  padding-top: 9px;
+  padding-left: 7px;
+}
+
+.track__button--pause svg {
+  padding-top: 7px;
+}
+
+.track__status-block{
+  flex: 1 0 auto;
+  margin-left: 30px;
+  padding-top: 18px;
+}
+
+.track__status {
+  display: block;
+  position: relative;
+  height: 3px;
+  background-color: #555555;
+  align-self: center;
+}
+
+.track__status--marker {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  top: -9px;
+  left: 42%;
+  background-color: #555555;
+  border-radius: 20px;
+}
+
+.time-indicators{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+.time-indicators__start,
+.time-indicators__finish{
+  font-size: 12px;
+  color: #ffffff;
+}
