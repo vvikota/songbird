@@ -50,6 +50,7 @@ class MainScreen extends React.PureComponent {
         isCorrectAnswer={isCorrectAnswer}
         isPlaying = {isPlaying}
         onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
+        isStartLevel={isStartLevel}
         src = {audio}
       />
       <section className="answer-section">

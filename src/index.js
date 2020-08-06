@@ -5,13 +5,11 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 
 import App from './App';
-// import {reducer, ActionCreator} from "./reducer.js";
 import reducer from "./reducer/index.js";
 import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 
 const init = () => {
 
-  
   const store = createStore(
     reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -20,9 +18,7 @@ const init = () => {
   store.dispatch(MainActionCreator.loadQuestions());
 
   ReactDOM.render(<Provider store={store}>
-
         <App />
-
     </Provider>,
     document.getElementById('root')
   );

@@ -37,13 +37,20 @@
   align-self: center;
 }
 
-.track__status--marker {
+.track__status-progress{
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  background-color: rgba(67, 138, 85, 0.5)
+}
+
+.track__status-marker {
   position: absolute;
   content: "";
-  width: 20px;
-  height: 20px;
-  top: -9px;
-  left: 42%;
+  width: 15px;
+  height: 15px;
+  top: -6px;
+  left: 0;
   background-color: #555555;
   border-radius: 20px;
 }

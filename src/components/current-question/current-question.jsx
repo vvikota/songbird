@@ -11,11 +11,9 @@ const CurrentQuestion = (props) => {
     isCorrectAnswer,
     isPlaying,
     onPlayButtonClick,
-    // src
+    isStartLevel,
+    src
   } = props;
-
-  const src = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`
-  // console.log(src);
 
   return <section className="current-question">
     <img
@@ -31,11 +29,15 @@ const CurrentQuestion = (props) => {
       </div>
       
       <div className="current-question__player">
-        <AudioPlayer 
+        { src ? <AudioPlayer 
           isPlaying = {isPlaying}
           onPlayButtonClick = {onPlayButtonClick}
           src = {src}
-        />
+          // isCorrectAnswer = {isCorrectAnswer}
+          isStartLevel={isStartLevel}
+        /> : <p>Loading...</p>}
+
+        
       </div>
     </div>
 

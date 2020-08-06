@@ -23,9 +23,26 @@ class AudioPlayer extends React.PureComponent {
 
   render() {
     const {isPlaying, isLoading, duration, progress } = this.state;
-    // const audio = this._audioRef.current;
-    // const currentTime = Math.round(audio.currentTime);
-    // let progress = Math.round((currentTime / duration) * 100);
+
+    let progressInPercent = (progress / duration) * 100;
+   
+    const transformTime = (time) => {
+      let minutes = Math.floor(time / 60);
+      let seconds =  Math.floor(time % 60);
+
+      if (minutes < 10) {
+        minutes = `0` + minutes;
+      };
+
+      if (seconds < 10) {
+        seconds = `0` + seconds;
+      };
+
+      return minutes + `:` + seconds
+    }
+    
+    let acumTime = transformTime(progress);
+    let residueTime = transformTime(duration - progress);
 
     return (
       <div className="player-component__wrapper">
@@ -39,18 +56,21 @@ class AudioPlayer extends React.PureComponent {
         </div>
         <div className="track__status-block">
           <div className="track__status">
-          {/* <span style={{width: (rating * 20) + `%`}}></span> */}
+            <div
+              className="track__status-progress"
+              style={{width: progressInPercent + `%`}}
+              ></div>
             <div 
-              className="track__status--marker"
-              style={{left: progress + `%`}}
+              className="track__status-marker"
+              style={{left: progressInPercent + `%`}}
             ></div>
             <audio
               ref={this._audioRef}
             />
           </div>
           <div className="time-indicators">
-            <span className="time-indicators__start">{duration}</span>
-            <span className="time-indicators__finish">00:40</span>
+            <span className="time-indicators__start">{acumTime}</span>
+            <span className="time-indicators__finish">{residueTime}</span>
           </div>
         </div>
       </div>  
@@ -58,9 +78,8 @@ class AudioPlayer extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {src} = this.props;
     const audio = this._audioRef.current;
-    audio.src = src;
+    audio.src = this.props.src;
 
     audio.onloadedmetadata = () => this.setState({
       duration: Math.round(audio.duration),
@@ -85,37 +104,24 @@ class AudioPlayer extends React.PureComponent {
     });
   }
 
-  componentDidUpdate() {
-    const {duration} = this.state;
-    // console.log(`${src} in update`)
-    // console.log(`component update`)
-    const audio = this._audioRef.current;
-
-    const currentTime = Math.round(audio.currentTime);
-
-    audio.onplay = () => {
-      this.setState({
-        progress: Math.round((currentTime / duration) * 100),
-      });
-    };
-
-    // let progress = Math.round((currentTime / duration) * 100);
+  componentDidUpdate(prevProps) {
+    let audio = this._audioRef.current;
 
     if (this.props.isPlaying) {
       audio.play();
     } else {
       audio.pause();
     }
-  }
 
-  componentWillUnmount() {
-    const audio = this._audioRef.current;
-
-    audio.oncanplaythrough = null;
-    audio.onplay = null;
-    audio.onpause = null;
-    audio.ontimeupdate = null;
-    audio.src = ``;
+    if(prevProps.isStartLevel === false &&
+       this.props.isStartLevel === true){
+      audio.src = this.props.src;
+      const {isPlaying} = this.props
+      console.log(isPlaying)
+      if (isPlaying === true){
+        this._onPlayButtonClick()
+      }
+    }
   }
 
   _onPlayButtonClick() {
