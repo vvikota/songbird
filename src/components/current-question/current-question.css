@@ -8,8 +8,8 @@
 }
 
 .current-question__img{
-  width: 250px;
-  height: 200px;
+  width: 200px;
+  height: 180px;
   object-fit: cover;
   margin-right: 50px;
   border-radius: 20px;
@@ -28,7 +28,7 @@
 }
 
 .current-question__player{
-  padding-top: 10px;
+  padding-top: 30px;
 }
 
 @media(max-width: 780px){
