@@ -12,11 +12,12 @@ class MainScreen extends React.PureComponent {
 
     this.state = {
       isPlaying: false,
+      isPlayingVariantAnswer: false,
     };
   }
 
   render() {
-    const {isPlaying} = this.state;
+    const {isPlaying, isPlayingVariantAnswer} = this.state;
     
     const {
       questions,
@@ -36,8 +37,6 @@ class MainScreen extends React.PureComponent {
 
     const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
-
-    // console.log(`mainScreen isPlaying ${this.state.isPlaying}`);
 
     return <>
       <Header 
@@ -66,6 +65,9 @@ class MainScreen extends React.PureComponent {
         <BirdDescription 
           activeAnswerData={activeAnswerData}
           isStartLevel={isStartLevel}
+          isPlaying = {isPlayingVariantAnswer}
+          onPlayButtonClick = {() =>
+             this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer})}
         />
       </section>
       <button

@@ -14,15 +14,18 @@ class AudioPlayer extends React.PureComponent {
     this.state = {
       duration: 0,
       progress: 0,
-      isLoading: true,
-      isPlaying: props.isPlaying,
     };
 
     this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
   }
 
   render() {
-    const {isPlaying, isLoading, duration, progress } = this.state;
+    const {
+      duration,
+      progress
+    } = this.state;
+
+    const {isPlaying} = this.props;
 
     let progressInPercent = (progress / duration) * 100;
    
@@ -49,7 +52,6 @@ class AudioPlayer extends React.PureComponent {
         <div
           className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
           type="button"
-          disabled={isLoading}
           onClick={this._onPlayButtonClick}
         > 
          {isPlaying ? pausePic : playPic}
@@ -85,26 +87,13 @@ class AudioPlayer extends React.PureComponent {
       duration: Math.round(audio.duration),
     })
 
-    audio.oncanplaythrough = () => this.setState({
-      isLoading: false,
-    });
-
-    audio.onplay = () => {
-      this.setState({
-        isPlaying: true,
-      });
-    };
-
-    audio.onpause = () => this.setState({
-      isPlaying: false,
-    });
-
     audio.ontimeupdate = () => this.setState({
       progress: audio.currentTime
     });
   }
 
   componentDidUpdate(prevProps) {
+
     let audio = this._audioRef.current;
 
     if (this.props.isPlaying) {
@@ -113,20 +102,28 @@ class AudioPlayer extends React.PureComponent {
       audio.pause();
     }
 
-    if(prevProps.isStartLevel === false &&
-       this.props.isStartLevel === true){
+    if(prevProps.src !== this.props.src){
+
       audio.src = this.props.src;
       const {isPlaying} = this.props
-      console.log(isPlaying)
       if (isPlaying === true){
         this._onPlayButtonClick()
       }
     }
   }
 
+  componentWillUnmount() {
+    const audio = this._audioRef.current;
+
+    audio.oncanplaythrough = null;
+    audio.onplay = null;
+    audio.onpause = null;
+    audio.ontimeupdate = null;
+    audio.src = ``;
+  }
+
   _onPlayButtonClick() {
     this.props.onPlayButtonClick();
-    this.setState({isPlaying: !this.state.isPlaying});
   }
 }
 

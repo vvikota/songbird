@@ -33,11 +33,8 @@ const CurrentQuestion = (props) => {
           isPlaying = {isPlaying}
           onPlayButtonClick = {onPlayButtonClick}
           src = {src}
-          // isCorrectAnswer = {isCorrectAnswer}
           isStartLevel={isStartLevel}
         /> : <p>Loading...</p>}
-
-        
       </div>
     </div>
 

@@ -1,14 +1,20 @@
 import React from "react";
 import "./bird-description.css";
+import AudioPlayer from "../player/player";
 
 const BirdDescription = (props) => {
-  const {activeAnswerData, isStartLevel} = props;
-  // console.log(props)
+  const {
+    activeAnswerData,
+    isStartLevel,
+    isPlaying,
+    onPlayButtonClick
+  } = props;
 
   return <section className="bird-description">
     {
       isStartLevel ?
         <p>Послушайте плеер. <br/> Выберите птицу из списка</p> : 
+
         <>
           <div className="bird-description__top">
       
@@ -31,7 +37,13 @@ const BirdDescription = (props) => {
                 </span>
               </div>
 
-              <div className="bird-description__player">Player</div>
+              <div className="bird-description__player">
+                { activeAnswerData.audio ? <AudioPlayer 
+                    isPlaying = {isPlaying}
+                    onPlayButtonClick = {onPlayButtonClick}
+                    src = {activeAnswerData.audio}
+                  /> : <p>Loading...</p>}
+              </div>
             </div>
           </div>
           <div className="bird-description__text">
