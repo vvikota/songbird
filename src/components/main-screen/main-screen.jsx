@@ -5,6 +5,7 @@ import Header from '../header/header.jsx';
 import CurrentQuestion from "../current-question/current-question.jsx";
 import Answers from "../answers/answers.jsx";
 import BirdDescription from "../bird-description/bird-description.jsx";
+import WinScreen from "../win-screen/win-screen";
 
 class MainScreen extends React.PureComponent {
   constructor(props) {
@@ -17,7 +18,10 @@ class MainScreen extends React.PureComponent {
   }
 
   render() {
-    const {isPlaying, isPlayingVariantAnswer} = this.state;
+    const {
+      isPlaying,
+      isPlayingVariantAnswer
+    } = this.state;
     
     const {
       questions,
@@ -37,6 +41,7 @@ class MainScreen extends React.PureComponent {
 
     const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
+    const maxScore = categories.length * (categories.length - 1);
 
     return <>
       <Header 
@@ -76,6 +81,10 @@ class MainScreen extends React.PureComponent {
       >
         Next level
       </button>
+      <WinScreen 
+        score={score}
+        maxScore={maxScore}
+      />
     </>
   }
 
