@@ -14,13 +14,15 @@ class MainScreen extends React.PureComponent {
     this.state = {
       isPlaying: false,
       isPlayingVariantAnswer: false,
+      isGameOver: false,
     };
   }
 
   render() {
     const {
       isPlaying,
-      isPlayingVariantAnswer
+      isPlayingVariantAnswer, 
+      isGameOver,
     } = this.state;
     
     const {
@@ -42,6 +44,10 @@ class MainScreen extends React.PureComponent {
     const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
     const maxScore = categories.length * (categories.length - 1);
+    const lastQuestion = categories.length - 1;
+
+    // console.log(lastQuestion)
+    // console.log(currenCategory)
 
     return <>
       <Header 
@@ -49,42 +55,49 @@ class MainScreen extends React.PureComponent {
         currenCategory={currenCategory}  
         score={score}
       />
-      <CurrentQuestion 
-        correctAnswer={correctAnswer}
-        isCorrectAnswer={isCorrectAnswer}
-        isPlaying = {isPlaying}
-        onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
-        isStartLevel={isStartLevel}
-        src = {audio}
-      />
-      <section className="answer-section">
-        <Answers 
-          answerVariants={answerVariants}
-          onVariantClick={onVariantClick}
-          correctAnswer={correctAnswer.name}
-          changeAnswerStatus={changeAnswerStatus}
-          isStartLevel={isStartLevel}
-          isCorrectAnswer={isCorrectAnswer}
-          incrementScore={incrementScore}
+
+      {!isGameOver ? 
+        <div>
+          <CurrentQuestion 
+            correctAnswer={correctAnswer}
+            isCorrectAnswer={isCorrectAnswer}
+            isPlaying = {isPlaying}
+            onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
+            isStartLevel={isStartLevel}
+            src = {audio}
+          />
+          <section className="answer-section">
+            <Answers 
+              answerVariants={answerVariants}
+              onVariantClick={onVariantClick}
+              correctAnswer={correctAnswer.name}
+              changeAnswerStatus={changeAnswerStatus}
+              isStartLevel={isStartLevel}
+              isCorrectAnswer={isCorrectAnswer}
+              incrementScore={incrementScore}
+              lastQuestion={lastQuestion}
+            />
+            <BirdDescription 
+              activeAnswerData={activeAnswerData}
+              isStartLevel={isStartLevel}
+              isPlaying = {isPlayingVariantAnswer}
+              onPlayButtonClick = {() =>
+                this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer})}
+            />
+          </section>
+          <button
+            className={`next-level-button` + activeClassForButton}
+            onClick={isCorrectAnswer ? () => onNextLevelClick(questions, currenCategory) : null}
+          >
+            Next level
+          </button>
+        </div> : 
+
+        <WinScreen 
+          score={score}
+          maxScore={maxScore}
         />
-        <BirdDescription 
-          activeAnswerData={activeAnswerData}
-          isStartLevel={isStartLevel}
-          isPlaying = {isPlayingVariantAnswer}
-          onPlayButtonClick = {() =>
-             this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer})}
-        />
-      </section>
-      <button
-        className={`next-level-button` + activeClassForButton}
-        onClick={isCorrectAnswer ? () => onNextLevelClick(questions, currenCategory) : null}
-      >
-        Next level
-      </button>
-      <WinScreen 
-        score={score}
-        maxScore={maxScore}
-      />
+      }
     </>
   }
 

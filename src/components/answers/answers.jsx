@@ -31,7 +31,7 @@ class Answers extends React.PureComponent {
       isCorrectAnswer,
       incrementScore,
     } = this.props;
-    // console.log(correctAnswer)
+    // console.log(this.props)
 
     const processUserAnswer = (currentAnswer, id) => {
       if (!isCorrectAnswer){
