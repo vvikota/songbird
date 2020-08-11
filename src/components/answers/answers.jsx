@@ -13,7 +13,6 @@ class Answers extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps){
-
     if(prevProps.isStartLevel === false && this.props.isStartLevel === true){
       const userAnswer = new Array(this.props.answerVariants.length).fill(`empty`);
       this.setState((state) => {
@@ -30,6 +29,8 @@ class Answers extends React.PureComponent {
       changeAnswerStatus,
       isCorrectAnswer,
       incrementScore,
+      lastQuestion,
+      onLastQuestionClick
     } = this.props;
     // console.log(this.props)
 
@@ -43,10 +44,16 @@ class Answers extends React.PureComponent {
         } 
   
         if(currentAnswer === correctAnswer){
-          changeAnswerStatus();
-           
           const rezultScore = this.state.userAnswer.filter(item => item === `empty`).length - 1;
           incrementScore(rezultScore)
+
+          if(lastQuestion){
+            onLastQuestionClick();
+            // console.log(`lastQuestion`)
+          } else {
+            changeAnswerStatus();
+          }
+          
         } 
       } 
 

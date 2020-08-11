@@ -17,6 +17,7 @@ const ActionType = {
   CHOOSE_VARIANT: `CHOOSE_VARIAN`,
   CHANGE_ANSWER_STATUS: `CHANGE_ANSWER_STATUS`,
   INCREMENT_SCORE: `INCREMENT_SCORE`,
+  RESET_GAME: `RESET_GAME`,
 }
 
 const ActionCreator = {
@@ -31,9 +32,11 @@ const ActionCreator = {
   }),
 
   loadCorrectAnswer: (data, currenCategory) => {
+    // console.log(`currenCategory reducer ${currenCategory}`)
     const curentCategoryData = data[currenCategory].data; 
     const random = Math.floor(Math.random() * 6);
     const currentAnswerData = curentCategoryData[random];
+    console.log(currentAnswerData.name)
 
     return {
       type: ActionType.LOAD_CORRECT_ANSWER,
@@ -53,6 +56,10 @@ const ActionCreator = {
   incrementScore: (numberOfPoints) => ({
     type: ActionType.INCREMENT_SCORE,
     payload: numberOfPoints,
+  }),
+
+  resetGame: () => ({
+    type: ActionType.RESET_GAME,
   })
 }
 
@@ -83,6 +90,16 @@ const reducer = (state = initialState , action) => {
 
     case ActionType.INCREMENT_SCORE: return Object.assign({}, state, {
       score: state.score + action.payload,
+    });
+
+    case ActionType.RESET_GAME: return Object.assign({}, state, {
+      // questions: [],
+      currenCategory: 0,
+      score: 0,
+      isCorrectAnswer: false,
+      isStartLevel: true,
+      activeAnswer: ``,
+      correctAnswer: ``,
     });
 
     default: 

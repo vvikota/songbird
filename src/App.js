@@ -16,8 +16,7 @@ import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 import MainScreen from "./components/main-screen/main-screen.jsx";
 
 function App(props) {
-  // console.log(props)
-  // const {questions} = props;
+  // console.log(`currenCategory App ${props.currenCategory}`)
 
   return (
     <div className="App">
@@ -56,13 +55,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(MainActionCreator.loadCorrectAnswer(dataCurrentQuestion, currenCategory + 1))
   },
 
-
   getFirstCorrectAnswer: (questions, currenCategory) => {
     dispatch(MainActionCreator.loadCorrectAnswer(questions, currenCategory))
   },  
 
   incrementScore: (numberOfPoints) => {
     dispatch(MainActionCreator.incrementScore(numberOfPoints))
+  },
+  resetGame: () => {
+    dispatch(MainActionCreator.resetGame())
   }
 });
 

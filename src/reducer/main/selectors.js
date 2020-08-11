@@ -13,6 +13,7 @@ export const getCategories = createSelector(
 )
 
 export const getCurrenCategory = (state) => {
+  // console.log(`currenCategory selector ${state[NAME_SPACE].currenCategory}`)
   return state[NAME_SPACE].currenCategory || 0;
 };
 

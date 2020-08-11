@@ -39,15 +39,15 @@ class MainScreen extends React.PureComponent {
       onNextLevelClick,
       changeAnswerStatus,
       incrementScore,
+      resetGame,
     } = this.props;
 
     const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
     const maxScore = categories.length * (categories.length - 1);
-    const lastQuestion = categories.length - 1;
+    const lastQuestion = (categories.length - 1) === currenCategory;
 
     // console.log(lastQuestion)
-    // console.log(currenCategory)
 
     return <>
       <Header 
@@ -76,6 +76,7 @@ class MainScreen extends React.PureComponent {
               isCorrectAnswer={isCorrectAnswer}
               incrementScore={incrementScore}
               lastQuestion={lastQuestion}
+              onLastQuestionClick={() => this.setState({isGameOver: true})}
             />
             <BirdDescription 
               activeAnswerData={activeAnswerData}
@@ -96,13 +97,23 @@ class MainScreen extends React.PureComponent {
         <WinScreen 
           score={score}
           maxScore={maxScore}
+          onNextGameClick={() => 
+            this.setState({isGameOver: false})
+          }
+          resetGame={resetGame}
         />
       }
     </>
   }
 
   componentDidMount(){
-    this.props.getFirstCorrectAnswer(this.props.questions, 0)
+    this.props.getFirstCorrectAnswer(this.props.questions, this.props.currenCategory)
+  }
+
+  componentDidUpdate(prevProps, prevState) { 
+    if(prevState.isGameOver === true && this.state.isGameOver === false){
+      this.props.getFirstCorrectAnswer(this.props.questions, this.props.currenCategory)
+    }
   }
 }
 

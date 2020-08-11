@@ -35,3 +35,7 @@
 .win-screen button:hover {
   background-color: #00efb2;
 }
+
+.win-screen button:focus{
+  outline: none;
+}

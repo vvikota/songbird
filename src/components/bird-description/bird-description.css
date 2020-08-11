@@ -1,11 +1,13 @@
 .bird-description {
   width: 48%;
+  height: 239px;
   padding: 15px;
   color: #ffffff;
   border: 1px solid #555555;
   background-color: #303030;
   border-radius: 5px;
   overflow: hidden;
+  align-items: stretch;
 }
 
 .bird-description__top {
@@ -19,6 +21,7 @@
   margin-right: 30px;
   object-fit: cover;
   border-radius: 5px;
+
 }
 
 .bird-description__name-block {
@@ -49,11 +52,15 @@
   font-size: 15px;
 }
 
-.bird-description__player{
+.bird-description__player {
   padding-top: 15px;
 }
 
 @media(max-width: 1020px) {
+  .bird-description {
+    height: auto;
+  }
+
   .bird-description__top {
     flex-direction: column;
   }
