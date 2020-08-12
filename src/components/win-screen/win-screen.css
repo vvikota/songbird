@@ -39,3 +39,32 @@
 .win-screen button:focus{
   outline: none;
 }
+
+.win-image{
+  width: 80%;
+  margin-top: 20px;
+}
+
+@media(max-width: 620px){
+  .win-screen {
+    padding: 15px 20px 50px 20px;
+  }
+
+  .win-screen h1{
+    font-size: 30px;
+    margin-bottom: 5px;
+  }
+ 
+  .win-screen span {
+    font-size: 20px;
+  }
+
+  .win-screen p {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .win-image{
+    width: 100%;
+  }
+}

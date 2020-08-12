@@ -93,7 +93,6 @@ const reducer = (state = initialState , action) => {
     });
 
     case ActionType.RESET_GAME: return Object.assign({}, state, {
-      // questions: [],
       currenCategory: 0,
       score: 0,
       isCorrectAnswer: false,

@@ -47,34 +47,54 @@ class AudioPlayer extends React.PureComponent {
     let acumTime = transformTime(progress);
     let residueTime = transformTime(duration - progress);
 
+    const onVolumeChange = (event) => {
+      const audio = this._audioRef.current;
+      audio.volume = event.target.value;
+    }
+
     return (
       <div className="player-component__wrapper">
-        <div
-          className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
-          type="button"
-          onClick={this._onPlayButtonClick}
-        > 
-         {isPlaying ? pausePic : playPic}
-        </div>
-        <div className="track__status-block">
-          <div className="track__status">
-            <div
-              className="track__status-progress"
-              style={{width: progressInPercent + `%`}}
+        
+          <div
+            className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
+            type="button"
+            onClick={this._onPlayButtonClick}
+          > 
+          {isPlaying ? pausePic : playPic}
+          </div>
+
+          <div className="track__status-block">
+            <div className="track__status">
+              <div
+                className="track__status-progress"
+                style={{width: progressInPercent + `%`}}
+                ></div>
+              <div 
+                className="track__status-marker"
+                style={{left: progressInPercent + `%`}}
               ></div>
-            <div 
-              className="track__status-marker"
-              style={{left: progressInPercent + `%`}}
-            ></div>
-            <audio
-              ref={this._audioRef}
-            />
+              <audio
+                ref={this._audioRef}
+              />
+            </div>
+            <div className="time-indicators">
+              <span className="time-indicators__start">{acumTime}</span>
+              <span className="time-indicators__finish">{residueTime}</span>
+            </div>
+
+            <div className="volume-block">
+              <div className="volume__status">
+                <input 
+                  type="range"
+                  name="volume"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  onChange={onVolumeChange}
+                />
+              </div>
+            </div>
           </div>
-          <div className="time-indicators">
-            <span className="time-indicators__start">{acumTime}</span>
-            <span className="time-indicators__finish">{residueTime}</span>
-          </div>
-        </div>
       </div>  
     );
   }

@@ -1,14 +1,17 @@
 import React from "react";
 import "./answers.css";
 
+import correctSound from '../../assets/sound/correct_answer.mp3';
+import wrongSound from '../../assets/sound/wrong_answer.mp3';
+
 class Answers extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const {answerVariants} = this.props;
+    this._audioRef = React.createRef();
 
     this.state = {
-      userAnswer: new Array(answerVariants.length).fill(`empty`),
+      userAnswer: new Array(this.props.answerVariants.length).fill(`empty`),
     };
   }
 
@@ -29,14 +32,18 @@ class Answers extends React.PureComponent {
       changeAnswerStatus,
       isCorrectAnswer,
       incrementScore,
-      lastQuestion,
-      onLastQuestionClick
+      onCorrectAnswerClick,
     } = this.props;
     // console.log(this.props)
 
     const processUserAnswer = (currentAnswer, id) => {
+      
       if (!isCorrectAnswer){
         const userAnswer = [...this.state.userAnswer];
+
+        const audio = this._audioRef.current;
+        currentAnswer === correctAnswer ? audio.src = correctSound : audio.src = wrongSound;
+        audio.play();
 
         if(userAnswer[id] === `empty`){
           userAnswer[id] = currentAnswer
@@ -44,17 +51,11 @@ class Answers extends React.PureComponent {
         } 
   
         if(currentAnswer === correctAnswer){
+          onCorrectAnswerClick();
           const rezultScore = this.state.userAnswer.filter(item => item === `empty`).length - 1;
           incrementScore(rezultScore)
-
-          if(lastQuestion){
-            onLastQuestionClick();
-            // console.log(`lastQuestion`)
-          } else {
-            changeAnswerStatus();
-          }
-          
-        } 
+          changeAnswerStatus()
+        }
       } 
 
       onVariantClick(currentAnswer);
@@ -69,14 +70,15 @@ class Answers extends React.PureComponent {
     }
 
     return <section className="answers">
-    {answerVariants.map((currentAnswer, id) => {
-      return <button 
-                className={`answers-item` + classForButton(id)}
-                key={id}
-                onClick={() => processUserAnswer(currentAnswer, id)}
-              >
-              {currentAnswer}
-              </button>
+              <audio ref={this._audioRef} />
+              {answerVariants.map((currentAnswer, id) => {
+                return <button 
+                  className={`answers-item` + classForButton(id)}
+                  key={id}
+                  onClick={() => processUserAnswer(currentAnswer, id)}
+                  >
+                  {currentAnswer}
+                  </button>
     })}
   </section>
   }

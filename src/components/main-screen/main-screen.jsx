@@ -46,8 +46,16 @@ class MainScreen extends React.PureComponent {
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
     const maxScore = categories.length * (categories.length - 1);
     const lastQuestion = (categories.length - 1) === currenCategory;
+    const islastCorrectAnswer = lastQuestion && isCorrectAnswer;
 
-    // console.log(lastQuestion)
+    const onButtonclick = () => {
+      if(islastCorrectAnswer){
+        this.setState({isGameOver: true})
+      } else {
+        return isCorrectAnswer ? onNextLevelClick(questions, currenCategory) : null
+      }
+    }
+   
 
     return <>
       <Header 
@@ -75,8 +83,7 @@ class MainScreen extends React.PureComponent {
               isStartLevel={isStartLevel}
               isCorrectAnswer={isCorrectAnswer}
               incrementScore={incrementScore}
-              lastQuestion={lastQuestion}
-              onLastQuestionClick={() => this.setState({isGameOver: true})}
+              onCorrectAnswerClick={() => this.setState({isPlaying: false})}
             />
             <BirdDescription 
               activeAnswerData={activeAnswerData}
@@ -88,9 +95,9 @@ class MainScreen extends React.PureComponent {
           </section>
           <button
             className={`next-level-button` + activeClassForButton}
-            onClick={isCorrectAnswer ? () => onNextLevelClick(questions, currenCategory) : null}
-          >
-            Next level
+            onClick={onButtonclick}
+          >  
+          {islastCorrectAnswer ? `Закончить игру` : `Следующий вопрос`}
           </button>
         </div> : 
 
