@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import './win-screen.css';
 import winImg from '../../assets/images/ornitolog.jpg';
 import {connect} from "react-redux";
@@ -6,10 +6,16 @@ import {ActionCreator} from "../../reducer/main/main";
 import {getScore} from "../../reducer/main/selectors";
 import {getCategories} from "../../reducer/main/selectors";
 
-const WinScreen = (props) =>  {
+interface WinScreenProps { 
+  score: number
+  onNextGameClick: () => void
+  resetGame: () => void
+  categories: string[]
+}
+
+const WinScreen = (props: WinScreenProps) =>  {
   const {
     score,
-    // maxScore,
     onNextGameClick,
     resetGame,
     categories,
@@ -40,17 +46,16 @@ const WinScreen = (props) =>  {
           >Попробовать ещё раз!</button>
         </>
       }
-      
     </section>
   )
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   score: getScore(state),
   categories: getCategories(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
   resetGame: () => {
     dispatch(ActionCreator.resetGame())
   }

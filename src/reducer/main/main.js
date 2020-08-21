@@ -2,7 +2,7 @@ import questions from "../../mock/mockData";
 
 const initialState = {
   questions: [],
-  currenCategory: 4,
+  currenCategory: 0,
   score: 0,
   isCorrectAnswer: false,
   isStartLevel: true,
@@ -32,7 +32,6 @@ const ActionCreator = {
   }),
 
   loadCorrectAnswer: (data, currenCategory) => {
-    // console.log(`currenCategory reducer ${currenCategory}`)
     const curentCategoryData = data[currenCategory].data; 
     const random = Math.floor(Math.random() * 6);
     const currentAnswerData = curentCategoryData[random];

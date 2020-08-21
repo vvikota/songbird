@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Header from './components/header/header.jsx';
+import Header from './components/header/header.tsx';
 import MainScreen from "./components/main-screen/main-screen.jsx";
-import WinScreen from "./components/win-screen/win-screen";
+import WinScreen from "./components/win-screen/win-screen.tsx";
 
 class App extends React.PureComponent {
   constructor(props) {

@@ -40,7 +40,7 @@ export const getActiveAnswerData = createSelector(
   getActiveAnswer,
   (rezultOne, rezultTwo) => {
     return rezultOne.filter(
-      item => item.name === rezultTwo)[0];
+      item => item.name === rezultTwo)[0] || 'no active answer';
   }
 )
 

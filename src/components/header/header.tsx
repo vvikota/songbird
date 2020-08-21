@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import './header.css';
 import {connect} from "react-redux";
 import {getCategories} from "../../reducer/main/selectors";
@@ -7,7 +7,13 @@ import {getScore} from "../../reducer/main/selectors";
 
 import logo from '../../assets/images/logo-songbird.svg';
 
-const Header = (props) => {
+interface HeaderProps {
+  categories: string[]
+  currenCategory: number
+  score: number
+}
+
+const Header = (props: HeaderProps) => {
   const {
     categories,
     currenCategory,
@@ -36,7 +42,7 @@ const Header = (props) => {
   </header>
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   categories: getCategories(state),
   currenCategory: getCurrenCategory(state),
   score: getScore(state),
