@@ -1,41 +1,33 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {getQuestions} from "./reducer/main/selectors";
-import {getCurrenCategory} from "./reducer/main/selectors";
-import {getIsCorrectAnswer} from "./reducer/main/selectors";
-import {getCategories} from "./reducer/main/selectors";
-import {ActionCreator} from "./reducer/main/main";
 
+import Header from './components/header/header.jsx';
 import MainScreen from "./components/main-screen/main-screen.jsx";
+import WinScreen from "./components/win-screen/win-screen";
 
-function App(props) {
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="App">
-      <MainScreen
-        {...props}
-      />
-    </div>
-  );
+    this.state = {
+      isGameOver: false,
+    };
+  }
+
+  render() {
+    const {isGameOver} = this.state;
+
+    return (
+      <>
+        <Header/>
+
+        {isGameOver ? (
+          <WinScreen onNextGameClick={() => this.setState({isGameOver: false})}/>
+        ) : (
+          <MainScreen onGameOverClick={() => this.setState({isGameOver: true})}/>
+        )}
+      </>  
+    );
+  }
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currenCategory: getCurrenCategory(state),
-  questions: getQuestions(state),
-  isCorrectAnswer: getIsCorrectAnswer(state),
-  categories: getCategories(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  
-  onNextLevelClick: (dataCurrentQuestion, currenCategory) => {
-    dispatch(ActionCreator.changeCurrentCategory())
-    dispatch(ActionCreator.loadCorrectAnswer(dataCurrentQuestion, currenCategory + 1))
-  },
-
-  getFirstCorrectAnswer: (questions, currenCategory) => {
-    dispatch(ActionCreator.loadCorrectAnswer(questions, currenCategory))
-  },  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

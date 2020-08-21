@@ -2,7 +2,7 @@ import questions from "../../mock/mockData";
 
 const initialState = {
   questions: [],
-  currenCategory: 0,
+  currenCategory: 4,
   score: 0,
   isCorrectAnswer: false,
   isStartLevel: true,
