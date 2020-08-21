@@ -1,5 +1,9 @@
 import React from "react";
 import './header.css';
+import {connect} from "react-redux";
+import {getCategories} from "../../reducer/main/selectors";
+import {getCurrenCategory} from "../../reducer/main/selectors";
+import {getScore} from "../../reducer/main/selectors";
 
 import logo from '../../assets/images/logo-songbird.svg';
 
@@ -9,12 +13,11 @@ const Header = (props) => {
     currenCategory,
     score
   } = props;
-  // console.log(currenCategory)
 
   return <header>
     <div className="top-header">
       <img src={logo} alt="logo"/>
-<span className="point-counter">Score: {score}</span>
+      <span className="point-counter">Score: {score}</span>
     </div>
 
     <div className="category-questions">
@@ -33,4 +36,10 @@ const Header = (props) => {
   </header>
 }
 
-export default Header;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  categories: getCategories(state),
+  currenCategory: getCurrenCategory(state),
+  score: getScore(state),
+});
+
+export default connect(mapStateToProps)(Header);

@@ -1,5 +1,11 @@
 import React from "react";
 import "./answers.css";
+import {connect} from "react-redux";
+import {getCurrentAnswerVariants} from "../../reducer/main/selectors";
+import {getCorrectAnswer} from "../../reducer/main/selectors";
+import {getIsCorrectAnswer} from "../../reducer/main/selectors";
+import {getIsStartLevel} from "../../reducer/main/selectors";
+import {ActionCreator} from "../../reducer/main/main";
 
 import correctSound from '../../assets/sound/correct_answer.mp3';
 import wrongSound from '../../assets/sound/wrong_answer.mp3';
@@ -25,16 +31,17 @@ class Answers extends React.PureComponent {
   }
 
   render() {
+
     const {
       answerVariants,
       onVariantClick,
-      correctAnswer,
       changeAnswerStatus,
       isCorrectAnswer,
       incrementScore,
       onCorrectAnswerClick,
     } = this.props;
-    // console.log(this.props)
+
+    const correctAnswer = this.props.correctAnswer.name;
 
     const processUserAnswer = (currentAnswer, id) => {
       
@@ -84,4 +91,25 @@ class Answers extends React.PureComponent {
   }
 }
 
-export default Answers;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  answerVariants: getCurrentAnswerVariants(state),
+  correctAnswer: getCorrectAnswer(state),
+  isCorrectAnswer: getIsCorrectAnswer(state),
+  isStartLevel: getIsStartLevel(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onVariantClick: (answer) => {
+    dispatch(ActionCreator.chooseVariant(answer))
+  },
+
+  changeAnswerStatus: () => {
+    dispatch(ActionCreator.changeAnswerStatus())
+  },
+
+  incrementScore: (numberOfPoints) => {
+    dispatch(ActionCreator.incrementScore(numberOfPoints))
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Answers);

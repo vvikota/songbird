@@ -1,6 +1,9 @@
 import React from "react";
 import "./bird-description.css";
 import AudioPlayer from "../player/player";
+import {connect} from "react-redux";
+import {getActiveAnswerData} from "../../reducer/main/selectors";
+import {getIsStartLevel} from "../../reducer/main/selectors";
 
 const BirdDescription = (props) => {
   const {
@@ -52,8 +55,12 @@ const BirdDescription = (props) => {
         </>
     }
 
-    
   </section>
 }
 
-export default BirdDescription;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  activeAnswerData: getActiveAnswerData(state),
+  isStartLevel: getIsStartLevel(state),
+});
+
+export default connect(mapStateToProps)(BirdDescription);

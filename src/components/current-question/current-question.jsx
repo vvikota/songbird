@@ -1,19 +1,23 @@
 import React from "react";
 import "./current-question.css";
 import AudioPlayer from "../player/player";
+import {connect} from "react-redux";
+import {getCorrectAnswer} from "../../reducer/main/selectors";
+import {getIsCorrectAnswer} from "../../reducer/main/selectors";
+import {getIsStartLevel} from "../../reducer/main/selectors";
 
 import altPic from '../../assets/images/alt_bird.jpg';
 
 const CurrentQuestion = (props) => {
-  // console.log(props)
   const {
     correctAnswer,
     isCorrectAnswer,
     isPlaying,
     onPlayButtonClick,
     isStartLevel,
-    src
   } = props;
+
+  const src = correctAnswer.audio
 
   return <section className="current-question">
     <img
@@ -41,4 +45,10 @@ const CurrentQuestion = (props) => {
   </section>
 }
 
-export default CurrentQuestion;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  correctAnswer: getCorrectAnswer(state),
+  isCorrectAnswer: getIsCorrectAnswer(state),
+  isStartLevel: getIsStartLevel(state),
+});
+
+export default connect(mapStateToProps)(CurrentQuestion);

@@ -26,25 +26,14 @@ class MainScreen extends React.PureComponent {
     } = this.state;
     
     const {
-      questions,
       currenCategory,
-      score,
+      questions,
       isCorrectAnswer,
-      isStartLevel,
-      onVariantClick,
-      correctAnswer,
       categories,
-      answerVariants,
-      activeAnswerData,
       onNextLevelClick,
-      changeAnswerStatus,
-      incrementScore,
-      resetGame,
     } = this.props;
 
-    const audio = correctAnswer.audio
     const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
-    const maxScore = categories.length * (categories.length - 1);
     const lastQuestion = (categories.length - 1) === currenCategory;
     const islastCorrectAnswer = lastQuestion && isCorrectAnswer;
 
@@ -56,38 +45,20 @@ class MainScreen extends React.PureComponent {
       }
     }
    
-
     return <>
-      <Header 
-        categories={categories}
-        currenCategory={currenCategory}  
-        score={score}
-      />
+      <Header/>
 
       {!isGameOver ? 
         <div>
           <CurrentQuestion 
-            correctAnswer={correctAnswer}
-            isCorrectAnswer={isCorrectAnswer}
             isPlaying = {isPlaying}
             onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
-            isStartLevel={isStartLevel}
-            src = {audio}
           />
           <section className="answer-section">
             <Answers 
-              answerVariants={answerVariants}
-              onVariantClick={onVariantClick}
-              correctAnswer={correctAnswer.name}
-              changeAnswerStatus={changeAnswerStatus}
-              isStartLevel={isStartLevel}
-              isCorrectAnswer={isCorrectAnswer}
-              incrementScore={incrementScore}
               onCorrectAnswerClick={() => this.setState({isPlaying: false})}
             />
             <BirdDescription 
-              activeAnswerData={activeAnswerData}
-              isStartLevel={isStartLevel}
               isPlaying = {isPlayingVariantAnswer}
               onPlayButtonClick = {() =>
                 this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer})}
@@ -102,12 +73,9 @@ class MainScreen extends React.PureComponent {
         </div> : 
 
         <WinScreen 
-          score={score}
-          maxScore={maxScore}
           onNextGameClick={() => 
             this.setState({isGameOver: false})
           }
-          resetGame={resetGame}
         />
       }
     </>

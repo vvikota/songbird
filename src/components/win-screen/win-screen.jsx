@@ -1,12 +1,22 @@
 import React from "react";
 import './win-screen.css';
 import winImg from '../../assets/images/ornitolog.jpg';
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/main/main";
+import {getScore} from "../../reducer/main/selectors";
+import {getCategories} from "../../reducer/main/selectors";
 
 const WinScreen = (props) =>  {
-  const {score, maxScore, onNextGameClick,resetGame} = props;
+  const {
+    score,
+    // maxScore,
+    onNextGameClick,
+    resetGame,
+    categories,
+  } = props;
   
+  const maxScore = categories.length * (categories.length - 1);
   const absoluteVictory = score === maxScore;
-  // const absoluteVictory = false;
 
   const startNextGame = () => {
     resetGame()
@@ -35,4 +45,15 @@ const WinScreen = (props) =>  {
   )
 };
 
-export default WinScreen;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  score: getScore(state),
+  categories: getCategories(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetGame: () => {
+    dispatch(ActionCreator.resetGame())
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WinScreen);
