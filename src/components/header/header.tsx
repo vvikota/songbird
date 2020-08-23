@@ -5,7 +5,7 @@ import {getCategories} from "../../reducer/main/selectors";
 import {getCurrenCategory} from "../../reducer/main/selectors";
 import {getScore} from "../../reducer/main/selectors";
 
-import logo from '../../assets/images/logo-songbird.svg';
+import logo from '../../assets/images/logo.png';
 
 interface HeaderProps {
   categories: string[]

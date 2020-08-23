@@ -7,8 +7,8 @@ import {getIsCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsStartLevel} from "../../reducer/main/selectors";
 import {ActionCreator} from "../../reducer/main/main";
 
-import correctSound from '../../assets/sound/correct_answer.mp3';
-import wrongSound from '../../assets/sound/wrong_answer.mp3';
+import correctSound from '../../assets/sound/correct.mp3';
+import wrongSound from '../../assets/sound/wrong.mp3';
 
 class Answers extends React.PureComponent {
   constructor(props) {

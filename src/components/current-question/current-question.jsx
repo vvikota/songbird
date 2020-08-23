@@ -6,7 +6,7 @@ import {getCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsStartLevel} from "../../reducer/main/selectors";
 
-import altPic from '../../assets/images/alt_bird.jpg';
+import defaultImg from '../../assets/images/default.jpg';
 
 const CurrentQuestion = (props) => {
   const {
@@ -23,7 +23,7 @@ const CurrentQuestion = (props) => {
     <section className="current-question">
       <img
         className="current-question__img"
-        src={isCorrectAnswer ? correctAnswer.image : altPic}
+        src={isCorrectAnswer ? correctAnswer.image : defaultImg}
         alt="bird" 
       />
       <div className="current-question__player-block">
