@@ -18,6 +18,53 @@ class AudioPlayer extends React.PureComponent {
 
     this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
   }
+  
+  _onPlayButtonClick() {
+    this.props.onPlayButtonClick();
+  }
+
+  componentDidMount() {
+    const audio = this._audioRef.current;
+    audio.src = this.props.src;
+
+    audio.onloadedmetadata = () => this.setState({
+      duration: Math.round(audio.duration),
+    })
+
+    audio.ontimeupdate = () => this.setState({
+      progress: audio.currentTime
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+
+    let audio = this._audioRef.current;
+
+    if (this.props.isPlaying) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+
+    if(prevProps.src !== this.props.src){
+
+      audio.src = this.props.src;
+      const {isPlaying} = this.props
+      if (isPlaying === true){
+        this._onPlayButtonClick()
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    const audio = this._audioRef.current;
+
+    audio.oncanplaythrough = null;
+    audio.onplay = null;
+    audio.onpause = null;
+    audio.ontimeupdate = null;
+    audio.src = ``;
+  }
 
   render() {
     const {
@@ -97,53 +144,6 @@ class AudioPlayer extends React.PureComponent {
           </div>
       </div>  
     );
-  }
-
-  componentDidMount() {
-    const audio = this._audioRef.current;
-    audio.src = this.props.src;
-
-    audio.onloadedmetadata = () => this.setState({
-      duration: Math.round(audio.duration),
-    })
-
-    audio.ontimeupdate = () => this.setState({
-      progress: audio.currentTime
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-
-    let audio = this._audioRef.current;
-
-    if (this.props.isPlaying) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-
-    if(prevProps.src !== this.props.src){
-
-      audio.src = this.props.src;
-      const {isPlaying} = this.props
-      if (isPlaying === true){
-        this._onPlayButtonClick()
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    const audio = this._audioRef.current;
-
-    audio.oncanplaythrough = null;
-    audio.onplay = null;
-    audio.onpause = null;
-    audio.ontimeupdate = null;
-    audio.src = ``;
-  }
-
-  _onPlayButtonClick() {
-    this.props.onPlayButtonClick();
   }
 }
 

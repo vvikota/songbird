@@ -13,51 +13,54 @@ const BirdDescription = (props) => {
     onPlayButtonClick
   } = props;
 
-  console.log(activeAnswerData)
-
-  return <section className="bird-description">
-    {
-      isStartLevel ?
-        <p>Послушайте плеер. <br/> Выберите птицу из списка</p> : 
-
-        <>
-          <div className="bird-description__top">
-      
-            <img
-              src={activeAnswerData.image}
-              alt="bird"
-              className="bird-description__image"
-            />  
-            
-            <div className="bird-description__name-block">
-              <div className="bird-description__title-wrapper">
-                <h3 className="bird-description__title">
-                  {activeAnswerData.name}
-                </h3>
-              </div>
+  return (
+    <section className="bird-description">
+      {
+        isStartLevel ? (
+          <p>Послушайте плеер. <br/> Выберите птицу из списка</p> 
+        ) : (
+          <>
+            <div className="bird-description__top">
+              <img
+                src={activeAnswerData.image}
+                alt="bird"
+                className="bird-description__image"
+              />  
               
-              <div className="bird-description__latin-wrapper">
-                <span className="bird-description__latin">
-                  {activeAnswerData.species}
-                </span>
-              </div>
+              <div className="bird-description__name-block">
+                <div className="bird-description__title-wrapper">
+                  <h3 className="bird-description__title">
+                    {activeAnswerData.name}
+                  </h3>
+                </div>
+                
+                <div className="bird-description__latin-wrapper">
+                  <span className="bird-description__latin">
+                    {activeAnswerData.species}
+                  </span>
+                </div>
 
-              <div className="bird-description__player">
-                { activeAnswerData.audio ? <AudioPlayer 
-                    isPlaying = {isPlaying}
-                    onPlayButtonClick = {onPlayButtonClick}
-                    src = {activeAnswerData.audio}
-                  /> : <p>Loading...</p>}
+                <div className="bird-description__player">
+                  { activeAnswerData.audio ? (
+                    <AudioPlayer 
+                      isPlaying = {isPlaying}
+                      onPlayButtonClick = {onPlayButtonClick}
+                      src = {activeAnswerData.audio}
+                    />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="bird-description__text">
-            {activeAnswerData.description}
-          </div> 
-        </>
-    }
-
+            <div className="bird-description__text">
+              {activeAnswerData.description}
+            </div> 
+          </>
+        )   
+      }
   </section>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

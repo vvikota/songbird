@@ -24,7 +24,7 @@ class Answers extends React.PureComponent {
   componentDidUpdate(prevProps){
     if(prevProps.isStartLevel === false && this.props.isStartLevel === true){
       const userAnswer = new Array(this.props.answerVariants.length).fill(`empty`);
-      this.setState((state) => {
+      this.setState(() => {
         return {userAnswer: userAnswer}
       })
     }
@@ -49,7 +49,7 @@ class Answers extends React.PureComponent {
         const userAnswer = [...this.state.userAnswer];
 
         const audio = this._audioRef.current;
-        currentAnswer === correctAnswer ? audio.src = correctSound : audio.src = wrongSound;
+        audio.src = currentAnswer === correctAnswer ? correctSound : wrongSound;
         audio.play();
 
         if(userAnswer[id] === `empty`){
@@ -59,35 +59,31 @@ class Answers extends React.PureComponent {
   
         if(currentAnswer === correctAnswer){
           onCorrectAnswerClick();
-          const rezultScore = this.state.userAnswer.filter(item => item === `empty`).length - 1;
-          incrementScore(rezultScore)
+          incrementScore(this.state.userAnswer.filter(item => item === `empty`).length - 1)
           changeAnswerStatus()
         }
       } 
-
       onVariantClick(currentAnswer);
     }
 
-    const classForButton = (id) => {
-      if (this.state.userAnswer[id] === `empty`){
-        return ``
-      } else {
-        return this.state.userAnswer[id] === correctAnswer ? ` correct` : ` incorrect`
-      }
-    }
+    const classForButton = (id) => (this.state.userAnswer[id] === correctAnswer ? ` correct` : ` incorrect`);
 
-    return <section className="answers">
+    return (
+      <section className="answers">
               <audio ref={this._audioRef} />
               {answerVariants.map((currentAnswer, id) => {
-                return <button 
-                  className={`answers-item` + classForButton(id)}
-                  key={id}
-                  onClick={() => processUserAnswer(currentAnswer, id)}
+                return (
+                  <button 
+                    className={`answers-item${(this.state.userAnswer[id] !== `empty`) ? classForButton(id) : '' }`}
+                    key={id}
+                    onClick={() => processUserAnswer(currentAnswer, id)}
                   >
-                  {currentAnswer}
+                    {currentAnswer}
                   </button>
-    })}
-  </section>
+                )
+      })}
+      </section>
+    )  
   }
 }
 

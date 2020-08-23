@@ -19,30 +19,35 @@ const CurrentQuestion = (props) => {
 
   const src = correctAnswer.audio
 
-  return <section className="current-question">
-    <img
-      className="current-question__img"
-      src={isCorrectAnswer ? correctAnswer.image : altPic}
-      alt="bird" 
-    />
-    <div className="current-question__player-block">
-      <div className="current-question__player-title-wrapper">
-        <h2 className="current-question__player-title">
-          {isCorrectAnswer ? correctAnswer.name : `*****`}
-        </h2>
+  return (
+    <section className="current-question">
+      <img
+        className="current-question__img"
+        src={isCorrectAnswer ? correctAnswer.image : altPic}
+        alt="bird" 
+      />
+      <div className="current-question__player-block">
+        <div className="current-question__player-title-wrapper">
+          <h2 className="current-question__player-title">
+            {isCorrectAnswer ? correctAnswer.name : `*****`}
+          </h2>
+        </div>
+        
+        <div className="current-question__player">
+          { src ? (
+            <AudioPlayer 
+              isPlaying = {isPlaying}
+              onPlayButtonClick = {onPlayButtonClick}
+              src = {src}
+              isStartLevel={isStartLevel}
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
       </div>
-      
-      <div className="current-question__player">
-        { src ? <AudioPlayer 
-          isPlaying = {isPlaying}
-          onPlayButtonClick = {onPlayButtonClick}
-          src = {src}
-          isStartLevel={isStartLevel}
-        /> : <p>Loading...</p>}
-      </div>
-    </div>
-
-  </section>
+    </section>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

@@ -31,21 +31,21 @@ const WinScreen = (props: WinScreenProps) =>  {
 
   return (
     <section className="win-screen">
-      {absoluteVictory ? 
+      <h1>Поздравляем!</h1>
+      {absoluteVictory ? (
         <>
-          <h1>Поздравляем!</h1>
           <span>Абсолютная победа!</span>
           <p>Вы прошли викторину и набрали максимальное колличество возможных баллов {score} из {score}</p>
           <img src={winImg} alt="ornitolog" className="win-image"/>
-        </> : 
+        </>
+      ) : (
         <>
-          <h1>Поздравляем!</h1>
           <p>Вы прошли викторину и набрали {score} из {maxScore} возможных баллов</p>
           <button
             onClick={startNextGame}
           >Попробовать ещё раз!</button>
         </>
-      }
+      )}
     </section>
   )
 };

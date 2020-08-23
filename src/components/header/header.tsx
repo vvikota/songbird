@@ -20,26 +20,24 @@ const Header = (props: HeaderProps) => {
     score
   } = props;
 
-  return <header>
-    <div className="top-header">
-      <img src={logo} alt="logo"/>
-      <span className="point-counter">Score: {score}</span>
-    </div>
+  return (
+    <header>
+      <div className="top-header">
+        <img src={logo} alt="logo"/>
+        <span className="point-counter">Score: {score}</span>
+      </div>
 
-    <div className="category-questions">
-      {categories.map((category, id) => {
-        
-        const activeClass = currenCategory === id ? ` category-questions__item--active` : ``;
-
-        return <span 
-            className={`category-questions__item` + activeClass}
+      <div className="category-questions">
+        {categories.map((category, id) => (
+          <span 
+            className={`category-questions__item${currenCategory === id ? ' category-questions__item--active' : ''}`}
             key={id}>
             {category}
-          </span>})
-      }
-    </div>
-
-  </header>
+          </span>
+        ))}
+      </div>
+    </header>
+  )
 }
 
 const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {

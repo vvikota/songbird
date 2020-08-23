@@ -46,9 +46,7 @@ class MainScreen extends React.PureComponent {
       onGameOverClick,
     } = this.props;
 
-    const activeClassForButton = isCorrectAnswer ? ` next-level-button--active` : ``;
-    const lastQuestion = (categories.length - 1) === currenCategory;
-    const islastCorrectAnswer = lastQuestion && isCorrectAnswer;
+    const islastCorrectAnswer = ((categories.length - 1) === currenCategory) && isCorrectAnswer;
 
     const onButtonclick = () => {
       if(islastCorrectAnswer){
@@ -59,7 +57,8 @@ class MainScreen extends React.PureComponent {
       }
     }
    
-    return <>
+    return (
+      <>
         <div>
           <CurrentQuestion 
             isPlaying = {isPlaying}
@@ -76,13 +75,14 @@ class MainScreen extends React.PureComponent {
             />
           </section>
           <button
-            className={`next-level-button` + activeClassForButton}
+            className={`next-level-button${isCorrectAnswer ? ' next-level-button--active' : ''}`}
             onClick={onButtonclick}
           >  
           {islastCorrectAnswer ? `Закончить игру` : `Следующий вопрос`}
           </button>
         </div>
-    </>
+      </>
+    )
   }
 }
 
