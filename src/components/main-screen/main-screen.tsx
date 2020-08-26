@@ -71,7 +71,7 @@ class MainScreen extends React.PureComponent<Props, State> {
         <div>
           <CurrentQuestion 
             isPlaying = {isPlaying}
-            onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying})}
+            onPlayButtonClick = {() => this.setState({isPlaying: !isPlaying, isPlayingVariantAnswer: false})}
           />
           <section className="answer-section">
             <Answers 
@@ -80,7 +80,7 @@ class MainScreen extends React.PureComponent<Props, State> {
             <BirdDescription 
               isPlaying = {isPlayingVariantAnswer}
               onPlayButtonClick = {() =>
-                this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer})}
+                this.setState({isPlayingVariantAnswer: !isPlayingVariantAnswer, isPlaying: false})}
             />
           </section>
           <button
