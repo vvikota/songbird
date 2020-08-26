@@ -1,20 +1,27 @@
-import React from "react";
+import * as React from "react";
 import "./current-question.css";
 import AudioPlayer from "../player/player";
 import {connect} from "react-redux";
 import {getCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsStartLevel} from "../../reducer/main/selectors";
+import {CategoryQuestions} from "../../types";
 
 import defaultImg from '../../assets/images/default.jpg';
 
-const CurrentQuestion = (props) => {
+interface CurrentQuestionProps {
+  isPlaying: boolean;
+  isCorrectAnswer: boolean;
+  onPlayButtonClick: () => void;
+  correctAnswer: CategoryQuestions
+}
+
+const CurrentQuestion = (props: CurrentQuestionProps) => {
   const {
     correctAnswer,
     isCorrectAnswer,
     isPlaying,
     onPlayButtonClick,
-    isStartLevel,
   } = props;
 
   const src = correctAnswer.audio
@@ -39,7 +46,6 @@ const CurrentQuestion = (props) => {
               isPlaying = {isPlaying}
               onPlayButtonClick = {onPlayButtonClick}
               src = {src}
-              isStartLevel={isStartLevel}
             />
           ) : (
             <p>Loading...</p>
@@ -50,7 +56,7 @@ const CurrentQuestion = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   correctAnswer: getCorrectAnswer(state),
   isCorrectAnswer: getIsCorrectAnswer(state),
   isStartLevel: getIsStartLevel(state),

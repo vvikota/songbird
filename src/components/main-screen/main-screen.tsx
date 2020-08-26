@@ -1,18 +1,34 @@
-import React from "react";
+import * as React from "react";
 import './main-screen.css';
 
-import CurrentQuestion from "../current-question/current-question.jsx";
-import Answers from "../answers/answers.jsx";
-import BirdDescription from "../bird-description/bird-description.jsx";
+import CurrentQuestion from "../current-question/current-question";
+import Answers from "../answers/answers";
+import BirdDescription from "../bird-description/bird-description";
 import {getQuestions} from "../../reducer/main/selectors";
 import {getCurrenCategory} from "../../reducer/main/selectors";
 import {getIsCorrectAnswer} from "../../reducer/main/selectors";
 import {getCategories} from "../../reducer/main/selectors";
 import {ActionCreator} from "../../reducer/main/main";
 import {connect} from "react-redux";
+import {DataCategory} from "../../types";
 
-class MainScreen extends React.PureComponent {
-  constructor(props) {
+interface Props {
+  getFirstCorrectAnswer: (questions: DataCategory[], currentCategory: number) => void;
+  currenCategory: number;
+  questions: DataCategory[]
+  isCorrectAnswer: boolean;
+  categories: number[];
+  onNextLevelClick: (questions: DataCategory[], currenCategory: number) => void;
+  onGameOverClick: () => void;
+}
+
+interface State {
+  isPlaying: boolean;
+  isPlayingVariantAnswer: boolean;
+}
+
+class MainScreen extends React.PureComponent<Props, State> {
+  constructor(props: Readonly<Props>) {
     super(props);
 
     this.state = {
@@ -23,12 +39,6 @@ class MainScreen extends React.PureComponent {
 
   componentDidMount(){
     this.props.getFirstCorrectAnswer(this.props.questions, this.props.currenCategory)
-  }
-
-  componentDidUpdate(prevProps, prevState) { 
-    if(prevState.isGameOver === true && this.state.isGameOver === false){
-      this.props.getFirstCorrectAnswer(this.props.questions, this.props.currenCategory)
-    }
   }
 
   render() {
@@ -51,7 +61,6 @@ class MainScreen extends React.PureComponent {
     const onButtonclick = () => {
       if(islastCorrectAnswer){
         onGameOverClick();
-        this.setState({isGameOver: true})
       } else {
         return isCorrectAnswer ? onNextLevelClick(questions, currenCategory) : null
       }
@@ -86,21 +95,21 @@ class MainScreen extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   currenCategory: getCurrenCategory(state),
   questions: getQuestions(state),
   isCorrectAnswer: getIsCorrectAnswer(state),
   categories: getCategories(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: (arg0: { type: string; payload: any; }) => void) => ({
   
-  onNextLevelClick: (dataCurrentQuestion, currenCategory) => {
+  onNextLevelClick: (dataCurrentQuestion: DataCategory[], currenCategory: number) => {
     dispatch(ActionCreator.changeCurrentCategory())
     dispatch(ActionCreator.loadCorrectAnswer(dataCurrentQuestion, currenCategory + 1))
   },
 
-  getFirstCorrectAnswer: (questions, currenCategory) => {
+  getFirstCorrectAnswer: (questions: DataCategory[], currenCategory: number) => {
     dispatch(ActionCreator.loadCorrectAnswer(questions, currenCategory))
   },  
 });

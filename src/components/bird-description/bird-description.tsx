@@ -1,11 +1,19 @@
-import React from "react";
+import * as React from "react";
 import "./bird-description.css";
 import AudioPlayer from "../player/player";
 import {connect} from "react-redux";
 import {getActiveAnswerData} from "../../reducer/main/selectors";
 import {getIsStartLevel} from "../../reducer/main/selectors";
+import {CategoryQuestions} from "../../types";
 
-const BirdDescription = (props) => {
+interface BirdDescriptionProps {
+  isStartLevel: boolean;
+  isPlaying: boolean;
+  onPlayButtonClick: () => void;
+  activeAnswerData: CategoryQuestions;
+}
+
+const BirdDescription = (props: BirdDescriptionProps) => {
   const {
     activeAnswerData,
     isStartLevel,
@@ -59,11 +67,11 @@ const BirdDescription = (props) => {
           </>
         )   
       }
-  </section>
+    </section>
   )
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   activeAnswerData: getActiveAnswerData(state),
   isStartLevel: getIsStartLevel(state),
 });

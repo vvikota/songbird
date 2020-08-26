@@ -1,4 +1,5 @@
-import React from "react";
+import * as React from "react";
+import {createRef} from 'react';
 import "./answers.css";
 import {connect} from "react-redux";
 import {getCurrentAnswerVariants} from "../../reducer/main/selectors";
@@ -6,12 +7,28 @@ import {getCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsCorrectAnswer} from "../../reducer/main/selectors";
 import {getIsStartLevel} from "../../reducer/main/selectors";
 import {ActionCreator} from "../../reducer/main/main";
+import {CategoryQuestions} from "../../types";
 
-import correctSound from '../../assets/sound/correct.mp3';
-import wrongSound from '../../assets/sound/wrong.mp3';
+const correctSound = require ('../../assets/sound/correct.mp3');
+const wrongSound = require('../../assets/sound/wrong.mp3');
 
-class Answers extends React.PureComponent {
-  constructor(props) {
+interface Props {
+  answerVariants: string[];
+  changeAnswerStatus: () => void;
+  correctAnswer: CategoryQuestions;
+  incrementScore: (userAnswer: number) => void;
+  isCorrectAnswer: boolean;
+  isStartLevel: boolean;
+  onCorrectAnswerClick: () => void;
+  onVariantClick: (currentAnswer: string) => void;
+}
+
+interface State {
+  userAnswer: string[];
+}
+
+class Answers extends React.PureComponent<Props, State> {
+  constructor(props: Readonly<Props>) {
     super(props);
 
     this._audioRef = React.createRef();
@@ -21,7 +38,9 @@ class Answers extends React.PureComponent {
     };
   }
 
-  componentDidUpdate(prevProps){
+  private _audioRef = createRef<HTMLAudioElement>()
+
+  componentDidUpdate(prevProps: { isStartLevel: boolean; }){
     if(prevProps.isStartLevel === false && this.props.isStartLevel === true){
       const userAnswer = new Array(this.props.answerVariants.length).fill(`empty`);
       this.setState(() => {
@@ -31,7 +50,6 @@ class Answers extends React.PureComponent {
   }
 
   render() {
-
     const {
       answerVariants,
       onVariantClick,
@@ -40,33 +58,34 @@ class Answers extends React.PureComponent {
       incrementScore,
       onCorrectAnswerClick,
     } = this.props;
-
+ 
     const correctAnswer = this.props.correctAnswer.name;
-
-    const processUserAnswer = (currentAnswer, id) => {
+    const processUserAnswer = (currentAnswer: string, id: number) => {
       
       if (!isCorrectAnswer){
         const userAnswer = [...this.state.userAnswer];
-
         const audio = this._audioRef.current;
-        audio.src = currentAnswer === correctAnswer ? correctSound : wrongSound;
-        audio.play();
 
-        if(userAnswer[id] === `empty`){
-          userAnswer[id] = currentAnswer
-          this.setState({userAnswer})
-        } 
-  
-        if(currentAnswer === correctAnswer){
-          onCorrectAnswerClick();
-          incrementScore(this.state.userAnswer.filter(item => item === `empty`).length - 1)
-          changeAnswerStatus()
+        if(audio){
+          audio.src = currentAnswer === correctAnswer ? correctSound : wrongSound;
+          audio.play();
+
+          if(userAnswer[id] === `empty`){
+            userAnswer[id] = currentAnswer
+            this.setState({userAnswer})
+          } 
+    
+          if(currentAnswer === correctAnswer){
+            onCorrectAnswerClick();
+            incrementScore(this.state.userAnswer.filter(item => item === `empty`).length - 1)
+            changeAnswerStatus()
+          }
         }
       } 
       onVariantClick(currentAnswer);
     }
 
-    const classForButton = (id) => (this.state.userAnswer[id] === correctAnswer ? ` correct` : ` incorrect`);
+    const classForButton = (id: number) => (this.state.userAnswer[id] === correctAnswer ? ` correct` : ` incorrect`);
 
     return (
       <section className="answers">
@@ -87,15 +106,15 @@ class Answers extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
   answerVariants: getCurrentAnswerVariants(state),
   correctAnswer: getCorrectAnswer(state),
   isCorrectAnswer: getIsCorrectAnswer(state),
   isStartLevel: getIsStartLevel(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onVariantClick: (answer) => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; payload?: any; }) => void) => ({
+  onVariantClick: (answer: string) => {
     dispatch(ActionCreator.chooseVariant(answer))
   },
 
@@ -103,7 +122,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeAnswerStatus())
   },
 
-  incrementScore: (numberOfPoints) => {
+  incrementScore: (numberOfPoints: number) => {
     dispatch(ActionCreator.incrementScore(numberOfPoints))
   },
 });

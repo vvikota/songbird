@@ -1,11 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 
-import Header from './components/header/header.tsx';
-import MainScreen from "./components/main-screen/main-screen.jsx";
-import WinScreen from "./components/win-screen/win-screen.tsx";
+import Header from './components/header/header';
+import MainScreen from "./components/main-screen/main-screen";
+import WinScreen from "./components/win-screen/win-screen";
 
-class App extends React.PureComponent {
-  constructor(props) {
+interface Props {}
+interface State {
+  isGameOver: boolean;
+}
+
+class App extends React.PureComponent<Props, State> {
+  constructor(props: any) {
     super(props);
 
     this.state = {

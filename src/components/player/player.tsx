@@ -1,13 +1,23 @@
-import React from "react";
+import * as React from 'react';
+import {createRef} from 'react';
 import './player.css';
 import {PlayIcon, PauseIcon} from '../icons/icons';
 
-class AudioPlayer extends React.PureComponent {
-  constructor(props) {
+interface Props {
+  src: string;
+  onPlayButtonClick: () => void;
+  isPlaying: boolean;
+}
+
+interface State {
+  duration: number;
+  progress: number;
+}
+
+class AudioPlayer extends React.PureComponent<Props, State> {
+  constructor(props: Readonly<Props>) {
     super(props);
-
-    this._audioRef = React.createRef();
-
+    
     this.state = {
       duration: 0,
       progress: 0,
@@ -15,6 +25,8 @@ class AudioPlayer extends React.PureComponent {
 
     this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
   }
+
+  private _audioRef = createRef<HTMLAudioElement>()
   
   _onPlayButtonClick() {
     this.props.onPlayButtonClick();
@@ -22,33 +34,38 @@ class AudioPlayer extends React.PureComponent {
 
   componentDidMount() {
     const audio = this._audioRef.current;
-    audio.src = this.props.src;
+    
+    if(audio){
+      audio.src = this.props.src;
 
-    audio.onloadedmetadata = () => this.setState({
-      duration: Math.round(audio.duration),
-    })
+      audio.onloadedmetadata = () => this.setState({
+        duration: Math.round(audio.duration),
+      })
 
-    audio.ontimeupdate = () => this.setState({
-      progress: audio.currentTime
-    });
+      audio.ontimeupdate = () => this.setState({
+        progress: audio.currentTime
+      });
+    }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: { src: string; }) {
 
-    let audio = this._audioRef.current;
+    const audio = this._audioRef.current;
 
-    if (this.props.isPlaying) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
+    if(audio){
+      if (this.props.isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
 
-    if(prevProps.src !== this.props.src){
+      if(prevProps.src !== this.props.src){
 
-      audio.src = this.props.src;
-      const {isPlaying} = this.props
-      if (isPlaying === true){
-        this._onPlayButtonClick()
+        audio.src = this.props.src;
+        const {isPlaying} = this.props
+        if (isPlaying === true){
+          this._onPlayButtonClick()
+        }
       }
     }
   }
@@ -56,11 +73,13 @@ class AudioPlayer extends React.PureComponent {
   componentWillUnmount() {
     const audio = this._audioRef.current;
 
-    audio.oncanplaythrough = null;
-    audio.onplay = null;
-    audio.onpause = null;
-    audio.ontimeupdate = null;
-    audio.src = ``;
+    if(audio){
+      audio.oncanplaythrough = null;
+      audio.onplay = null;
+      audio.onpause = null;
+      audio.ontimeupdate = null;
+      audio.src = ``;
+    }
   }
 
   render() {
@@ -73,16 +92,16 @@ class AudioPlayer extends React.PureComponent {
 
     let progressInPercent = (progress / duration) * 100;
    
-    const transformTime = (time) => {
+    const transformTime = (time: number) => {
       let minutes = Math.floor(time / 60);
       let seconds =  Math.floor(time % 60);
 
       if (minutes < 10) {
-        minutes = `0` + minutes;
+        minutes = +`0` + minutes;
       };
 
       if (seconds < 10) {
-        seconds = `0` + seconds;
+        seconds = +`0` + seconds;
       };
 
       return minutes + `:` + seconds
@@ -91,16 +110,18 @@ class AudioPlayer extends React.PureComponent {
     let acumTime = transformTime(progress);
     let residueTime = transformTime(duration - progress);
 
-    const onVolumeChange = (event) => {
+    const onVolumeChange = (event: React.FormEvent<HTMLInputElement>) : void => {
       const audio = this._audioRef.current;
-      audio.volume = event.target.value;
+      if(audio) {
+        audio.volume = +(event.currentTarget.value);
+      }
     }
 
     return (
       <div className="player-component__wrapper">
           <div
             className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
-            type="button"
+            data-type="button"
             onClick={this._onPlayButtonClick}
           > 
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
@@ -111,7 +132,8 @@ class AudioPlayer extends React.PureComponent {
               <div
                 className="track__status-progress"
                 style={{width: progressInPercent + `%`}}
-                ></div>
+              >  
+              </div>
               <div 
                 className="track__status-marker"
                 style={{left: progressInPercent + `%`}}
