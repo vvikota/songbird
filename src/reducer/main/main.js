@@ -1,4 +1,4 @@
-import questions from "../../mock/mockData";
+import questions from "../../mock/guess_the_melody_data";
 
 const initialState = {
   questions: [],
