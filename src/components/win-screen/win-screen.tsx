@@ -1,6 +1,6 @@
 import * as React from "react";
 import './win-screen.css';
-import winImg from '../../assets/images/ornitolog.jpg';
+import winImg from '../../assets/images/winner.jpg';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/main/main";
 import {getScore} from "../../reducer/main/selectors";
