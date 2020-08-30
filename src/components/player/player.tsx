@@ -45,6 +45,8 @@ class AudioPlayer extends React.PureComponent<Props, State> {
       audio.ontimeupdate = () => this.setState({
         progress: audio.currentTime
       });
+
+      audio.onended = () => this.props.onPlayButtonClick();
     }
   }
 
@@ -93,15 +95,15 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     let progressInPercent = (progress / duration) * 100;
    
     const transformTime = (time: number) => {
-      let minutes = Math.floor(time / 60);
-      let seconds =  Math.floor(time % 60);
+      let minutes: number | string = Math.floor(time / 60);
+      let seconds: number | string =  Math.floor(time % 60);
 
       if (minutes < 10) {
-        minutes = +`0` + minutes;
+        minutes = '0' + minutes;
       };
 
       if (seconds < 10) {
-        seconds = +`0` + seconds;
+        seconds = `0` + seconds;
       };
 
       return minutes + `:` + seconds

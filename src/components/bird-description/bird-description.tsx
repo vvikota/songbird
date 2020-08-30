@@ -25,7 +25,7 @@ const BirdDescription = (props: BirdDescriptionProps) => {
     <section className="bird-description">
       {
         isStartLevel ? (
-          <p>Послушайте плеер. <br/> Выберите птицу из списка</p> 
+          <p>Послушайте плеер. <br/> Выберите правильный ответ</p> 
         ) : (
           <>
             <div className="bird-description__top">

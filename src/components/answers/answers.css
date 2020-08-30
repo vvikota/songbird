@@ -18,7 +18,8 @@
   border-bottom: 1px solid #555555;
   cursor: pointer;
   text-align: left;
-  font-size: 17px;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
 }
 
 .answers-item:focus{
