@@ -1,0 +1,82 @@
+.bird-description {
+  width: 48%;
+  height: 239px;
+  padding: 15px;
+  color: #ffffff;
+  border: 1px solid #555555;
+  background-color: #303030;
+  border-radius: 5px;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.bird-description__top {
+  display: flex;
+  margin-bottom: 9px;
+}
+
+.bird-description__image {
+  width: 138px;
+  height: 138px;
+  margin-right: 30px;
+  object-fit: cover;
+  border-radius: 5px;
+
+}
+
+.bird-description__name-block {
+  flex: auto;
+}
+
+.bird-description__title-wrapper,
+.bird-description__latin-wrapper {
+  border-bottom: 1px solid #555555;
+}
+
+.bird-description__title {
+  margin: 0;
+  font-size: 22px;
+}
+
+.bird-description__title-wrapper {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.bird-description__latin-wrapper {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.bird-description__text {
+  font-size: 15px;
+}
+
+.bird-description__player {
+  padding-top: 15px;
+}
+
+@media(max-width: 1020px) {
+  .bird-description {
+    height: auto;
+  }
+
+  .bird-description__top {
+    flex-direction: column;
+  }
+
+  .bird-description__name-block {
+    width: 100%;
+  }
+
+  .bird-description__name-block {
+    margin-top: 15px;
+  }
+}
+
+@media(max-width: 780px) {
+  .bird-description {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
