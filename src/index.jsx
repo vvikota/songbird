@@ -4,7 +4,8 @@ import './index.css';
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 
-import App from './App.tsx';
+// import App from './App.tsx';
+import Score from './components/score/score';
 import reducer from "./reducer/index.js";
 import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 
@@ -19,7 +20,8 @@ const init = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-        <App />
+        {/* <App /> */}
+        <Score />
     </Provider>,
     document.getElementById('root')
   );
