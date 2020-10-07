@@ -1,32 +1,45 @@
 import * as React from 'react';
 import './score.css';
+import {connect} from "react-redux";
+import {getGameScore} from "../../reducer/main/selectors";
+import {scoreRowInterface, stateInterface} from "../../types";
+import {ActionCreator} from "../../reducer/main/main";
 
-interface scoreRowInterface {
-  name: string,
-  score: number
+interface scoreProps {
+  gameScore: scoreRowInterface[]
 }
 
-const Score = () => {
-  const scoreList: scoreRowInterface[] = [
-    {name: 'vi', score: 1500},
-    {name: 'alex', score: 500},
-    {name: 'gena', score: 2500},
-    {name: 'lena', score: 4500},
-  ]
+const Score = (props: scoreProps) => {
+  const {gameScore} = props;
 
   return (
-    <section className='score'> 
-      <h2>Score</h2>
+    <section className="score"> 
+      <div className="scoreContent">
+      <h2>Score:</h2>
       <ul>
-      {scoreList.map(item => {
-        return <li>
+      {gameScore.map((item, key) => {
+        return <li key={key}>
           <span className="userName">{item.name}: </span>
           <span className="userScore">{item.score}</span>
         </li>
       })}
       </ul>
+      <button>Начать сначала</button>
+      </div>
     </section>
   )
 }
 
-export default Score;
+const mapStateToProps = (state: stateInterface) => (
+  {gameScore : getGameScore(state)}
+);
+
+const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
+  changeScoreShowStatus: () => {
+    dispatch(ActionCreator.changeScoreShowStatus())
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Score);
+
+

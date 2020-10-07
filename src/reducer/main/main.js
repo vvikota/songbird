@@ -8,6 +8,14 @@ const initialState = {
   isStartLevel: true,
   activeAnswer: ``,
   correctAnswer: ``,
+  showScore: false,
+  showSaveResult: false,
+  gameScore: [
+    {name: 'vi', score: 1500},
+    {name: 'alex', score: 500},
+    {name: 'gena', score: 2500},
+    {name: 'lena', score: 4500},
+  ],
 }
 
 const ActionType = {
@@ -18,9 +26,31 @@ const ActionType = {
   CHANGE_ANSWER_STATUS: `CHANGE_ANSWER_STATUS`,
   INCREMENT_SCORE: `INCREMENT_SCORE`,
   RESET_GAME: `RESET_GAME`,
+  CHANGE_SCORE_SHOW_STATUS: `CHANGE_SCORE_SHOW_STATUS`,
+  CHANGE_SAVE_RESULT_SHOW_STATUS: `CHANGE_SAVE_RESULT_SHOW_STATUS`,
+  SAVE_RESULT_TO_GAME_SCORE: `SAVE_RESULT_TO_GAME_SCORE`,
 }
 
 const ActionCreator = {
+  saveResultToGameScore: () => {
+    
+    let newScore = initialState.gameScore
+    newScore.push({name: 'varona', score: initialState.score})
+
+    return {
+      type: ActionType.SAVE_RESULT_TO_GAME_SCORE,
+      payload: newScore
+    }
+  },
+
+  changeSaveResultShowStatus: () => ({
+    type: ActionType.CHANGE_SAVE_RESULT_SHOW_STATUS,
+  }),
+
+  changeScoreShowStatus: () => ({
+    type: ActionType.CHANGE_SCORE_SHOW_STATUS,
+  }),
+
   changeCurrentCategory: () => ({
     type: ActionType.CHANGE_CURRENT_CATEGORY,
     payload: 1,
@@ -99,6 +129,18 @@ const reducer = (state = initialState , action) => {
       activeAnswer: ``,
       correctAnswer: ``,
     });
+
+    case ActionType.CHANGE_SCORE_SHOW_STATUS: return Object.assign({}, state, {
+      showScore: !state.showScore,
+    });
+
+    case ActionType.CHANGE_SAVE_RESULT_SHOW_STATUS: return Object.assign({}, state, {
+      showSaveResult: !state.showSaveResult,
+    })
+
+    case ActionType.SAVE_RESULT_TO_GAME_SCORE: return Object.assign({}, state, {
+      gameScore: action.payload
+    })
 
     default: 
       // do nothing

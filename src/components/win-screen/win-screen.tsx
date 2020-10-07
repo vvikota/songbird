@@ -4,13 +4,20 @@ import winImg from '../../assets/images/winner.jpg';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/main/main";
 import {getScore} from "../../reducer/main/selectors";
-import {getCategories} from "../../reducer/main/selectors";
+import {getCategories, getScoreShowStatus, getshowSaveResult} from "../../reducer/main/selectors";
+import Score from "../score/score";
+import SaveResult from "../save-result/save-result";
+import {stateInterface} from "../../types";
 
 interface WinScreenProps { 
   score: number
   onNextGameClick: () => void
   resetGame: () => void
   categories: string[]
+  isScoreShow: boolean
+  changeScoreShowStatus: () => void
+  changeSaveResultShowStatus: () => void
+  isShowSaveResult: boolean
 }
 
 const WinScreen = (props: WinScreenProps) =>  {
@@ -19,6 +26,10 @@ const WinScreen = (props: WinScreenProps) =>  {
     onNextGameClick,
     resetGame,
     categories,
+    isScoreShow,
+    // changeScoreShowStatus,
+    isShowSaveResult,
+    changeSaveResultShowStatus,
   } = props;
   
   const maxScore = categories.length * (categories.length - 1);
@@ -27,6 +38,10 @@ const WinScreen = (props: WinScreenProps) =>  {
   const startNextGame = () => {
     resetGame()
     onNextGameClick()
+  }
+
+  const showScore = () => {
+    changeSaveResultShowStatus()
   }
 
   return (
@@ -41,23 +56,35 @@ const WinScreen = (props: WinScreenProps) =>  {
       ) : (
         <>
           <p>Вы прошли викторину и набрали {score} из {maxScore} возможных баллов</p>
-          <button
-            onClick={startNextGame}
-          >Попробовать ещё раз!</button>
+          <button onClick={startNextGame}>
+            Попробовать ещё раз!
+          </button>
+
+          <button onClick={showScore}>Сохранить результат</button>
         </>
       )}
+      {isScoreShow ? <Score/> : ''}
+      {isShowSaveResult ? <SaveResult /> : ''}
     </section>
   )
 };
 
-const mapStateToProps = (state: any, ownProps: any) => Object.assign({}, ownProps, {
-  score: getScore(state),
-  categories: getCategories(state),
-});
+const mapStateToProps = (state: stateInterface) => ({
+    score: getScore(state),
+    categories: getCategories(state),
+    isScoreShow: getScoreShowStatus(state),
+    isShowSaveResult: getshowSaveResult(state),
+})
 
 const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
   resetGame: () => {
     dispatch(ActionCreator.resetGame())
+  },
+  changeScoreShowStatus: () => {
+    dispatch(ActionCreator.changeScoreShowStatus())
+  },
+  changeSaveResultShowStatus: () => {
+    dispatch(ActionCreator.changeSaveResultShowStatus())
   }
 });
 

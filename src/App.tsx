@@ -14,7 +14,7 @@ class App extends React.PureComponent<Props, State> {
     super(props);
 
     this.state = {
-      isGameOver: false,
+      isGameOver: true,
     };
   }
 

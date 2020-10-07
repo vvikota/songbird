@@ -7,13 +7,24 @@ export const getQuestions = (state) => {
   return state[NAME_SPACE].questions;
 };
 
+export const getGameScore =  (state) => {
+  return state[NAME_SPACE].gameScore;
+}
+
+export const getScoreShowStatus = (state) => {
+  return state[NAME_SPACE].showScore;
+}
+
+export const getshowSaveResult = (state) => {
+  return state[NAME_SPACE].showSaveResult;
+}
+
 export const getCategories = createSelector(
   getQuestions,
   (questions) => questions.map(question => question.category)
 )
 
 export const getCurrenCategory = (state) => {
-  // console.log(`currenCategory selector ${state[NAME_SPACE].currenCategory}`)
   return state[NAME_SPACE].currenCategory || 0;
 };
 
