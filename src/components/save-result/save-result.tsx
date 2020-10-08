@@ -6,57 +6,67 @@ import {stateInterface} from "../../types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/main/main";
 
-interface SaveResultProps {
-  saveResult: () => void
+interface Props {
+  saveResult: (name: string, currentScore: number) => void
   changeScoreShow: () => void
   changeSaveResultShow: () => void
+  currentScore: number
 }
 
-// class SaveResult extends React.PureComponent<Props, State> {
-//   constructor(props: any) {
-//     super(props);
+interface State {
+  inputValue: string
+}
 
-//     this.state = {
-//       inputValue: ''
-//     };
-//   }
+class SaveResult extends React.PureComponent<Props, State> {
+  constructor(props: any) {
+    super(props);
 
-//   render() {
+    this.state = {
+      inputValue: ''
+    };
 
-//   }
-// }
-
-const SaveResult = (props: SaveResultProps) => {
-  const {
-    saveResult,
-    changeSaveResultShow,
-    changeScoreShow
-  } = props;
-
-  const saveResultScore = () => {
-    saveResult()
-    changeSaveResultShow()
-    changeScoreShow()
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  return (
-    <section className="save-result-form">
-      <form>
-        <h3>Введите свое имя:</h3>
-        <input type="text"/>
-        <button onClick={saveResultScore}>Сохранить</button>
-      </form>
-    </section>
-  )
+  handleChange(event: { target: { value: string; }; }) {
+    this.setState({inputValue: event.target.value})
+  }
+
+  render() {
+    const {
+      saveResult,
+      changeSaveResultShow,
+      changeScoreShow,
+      currentScore
+    } = this.props;
+
+    const {inputValue} = this.state
+  
+    const saveResultScore = () => {
+      saveResult(inputValue, currentScore)
+      changeSaveResultShow()
+      changeScoreShow()
+    }
+  
+    return (
+      <section className="save-result-form">
+        <form>
+          <h3>Введите свое имя:</h3>
+          <input type="text" value={inputValue} onChange={this.handleChange} />
+          <button onClick={() => saveResultScore()}>Сохранить</button>
+        </form>
+      </section>
+    )
+  }
 }
 
 const mapStateToProps = (state: stateInterface) => (
   {currentScore : getScore(state)}
 );
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
-  saveResult: () => {
-    dispatch(ActionCreator.saveResultToGameScore())
+const mapDispatchToProps = (dispatch: any) => ({
+  saveResult: (name: string, currentScore: number) => {
+    dispatch(ActionCreator.saveResultToGameScore(name, currentScore))
   },
 
   changeSaveResultShow: () => {

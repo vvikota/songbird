@@ -15,7 +15,6 @@ interface WinScreenProps {
   resetGame: () => void
   categories: string[]
   isScoreShow: boolean
-  changeScoreShowStatus: () => void
   changeSaveResultShowStatus: () => void
   isShowSaveResult: boolean
 }
@@ -27,7 +26,6 @@ const WinScreen = (props: WinScreenProps) =>  {
     resetGame,
     categories,
     isScoreShow,
-    // changeScoreShowStatus,
     isShowSaveResult,
     changeSaveResultShowStatus,
   } = props;
@@ -40,10 +38,6 @@ const WinScreen = (props: WinScreenProps) =>  {
     onNextGameClick()
   }
 
-  const showScore = () => {
-    changeSaveResultShowStatus()
-  }
-
   return (
     <section className="win-screen">
       <h1>Поздравляем!</h1>
@@ -52,6 +46,7 @@ const WinScreen = (props: WinScreenProps) =>  {
           <span>Абсолютная победа!</span>
           <p>Вы прошли викторину и набрали максимальное колличество возможных баллов {score} из {score}</p>
           <img src={winImg} alt="ornitolog" className="win-image"/>
+          <button onClick={changeSaveResultShowStatus}>Сохранить результат</button>
         </>
       ) : (
         <>
@@ -60,10 +55,10 @@ const WinScreen = (props: WinScreenProps) =>  {
             Попробовать ещё раз!
           </button>
 
-          <button onClick={showScore}>Сохранить результат</button>
+          <button onClick={changeSaveResultShowStatus}>Сохранить результат</button>
         </>
       )}
-      {isScoreShow ? <Score/> : ''}
+      {isScoreShow ? <Score onNewGameClick={onNextGameClick} /> : ''}
       {isShowSaveResult ? <SaveResult /> : ''}
     </section>
   )
@@ -79,9 +74,6 @@ const mapStateToProps = (state: stateInterface) => ({
 const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
   resetGame: () => {
     dispatch(ActionCreator.resetGame())
-  },
-  changeScoreShowStatus: () => {
-    dispatch(ActionCreator.changeScoreShowStatus())
   },
   changeSaveResultShowStatus: () => {
     dispatch(ActionCreator.changeSaveResultShowStatus())

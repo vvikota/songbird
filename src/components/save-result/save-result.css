@@ -34,15 +34,6 @@
 .save-result-form form input:focus{
   outline: none;
 }
-/* 
-.scoreContent ul{
-  margin: 0;
-  padding: 0;
-}
-
-.scoreContent ul li{
-  list-style: none;
-} */
 
 .save-result-form button{
   width: 50%;

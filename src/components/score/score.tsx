@@ -7,10 +7,24 @@ import {ActionCreator} from "../../reducer/main/main";
 
 interface scoreProps {
   gameScore: scoreRowInterface[]
+  resetGame: () => void
+  changeScoreShowStatus: () => void
+  onNewGameClick: () => void
 }
 
 const Score = (props: scoreProps) => {
-  const {gameScore} = props;
+  const {
+    gameScore,
+    resetGame,
+    changeScoreShowStatus,
+    onNewGameClick
+  } = props;
+
+const startNewGame = () => {
+  resetGame()
+  changeScoreShowStatus()
+  onNewGameClick()
+}
 
   return (
     <section className="score"> 
@@ -24,7 +38,7 @@ const Score = (props: scoreProps) => {
         </li>
       })}
       </ul>
-      <button>Начать сначала</button>
+      <button onClick={startNewGame}>Начать сначала</button>
       </div>
     </section>
   )
@@ -37,7 +51,10 @@ const mapStateToProps = (state: stateInterface) => (
 const mapDispatchToProps = (dispatch: (arg0: { type: string; }) => void) => ({
   changeScoreShowStatus: () => {
     dispatch(ActionCreator.changeScoreShowStatus())
-  }
+  },
+  resetGame: () => {
+    dispatch(ActionCreator.resetGame())
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Score);
