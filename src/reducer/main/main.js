@@ -1,16 +1,16 @@
 import questions from "../../mock/guess_the_melody_data";
 
 const initialState = {
-  questions: [],
-  currenCategory: 5,
-  score: 0,
-  isCorrectAnswer: false,
-  isStartLevel: true,
   activeAnswer: ``,
   correctAnswer: ``,
-  showScore: false,
-  showSaveResult: false,
+  currenCategory: 5,
   gameScore: [],
+  isCorrectAnswer: false,
+  isStartLevel: true,
+  questions: [],
+  score: 0,
+  showSaveResult: false,
+  showScore: false,
 }
 
 const ActionType = {
@@ -28,14 +28,9 @@ const ActionType = {
 
 const ActionCreator = {
   saveResultToGameScore: (userName, currentUserScore, currentScoreList) => {
-    
-    let newScore = currentScoreList;
-
-    newScore.push({name: userName, score: currentUserScore})
-
     return {
       type: ActionType.SAVE_RESULT_TO_GAME_SCORE,
-      payload: newScore
+      payload: [...currentScoreList, {name: userName, score: currentUserScore}]
     }
   },
 
