@@ -1,22 +1,19 @@
-import NameSpace from "../name-spaces";
 import {createSelector} from "reselect";
 
-const NAME_SPACE = NameSpace.MAIN;
-
 export const getQuestions = (state) => {
-  return state[NAME_SPACE].questions;
+  return state.questions;
 };
 
 export const getGameScore =  (state) => {
-  return state[NAME_SPACE].gameScore;
+  return state.gameScore;
 }
 
 export const getScoreShowStatus = (state) => {
-  return state[NAME_SPACE].showScore;
+  return state.showScore;
 }
 
 export const getshowSaveResult = (state) => {
-  return state[NAME_SPACE].showSaveResult;
+  return state.showSaveResult;
 }
 
 export const getCategories = createSelector(
@@ -25,7 +22,7 @@ export const getCategories = createSelector(
 )
 
 export const getCurrenCategory = (state) => {
-  return state[NAME_SPACE].currenCategory || 0;
+  return state.currenCategory || 0;
 };
 
 export const getDataCurrentQuestion = createSelector(
@@ -43,7 +40,7 @@ export const getCurrentAnswerVariants = createSelector(
 
 
 export const getActiveAnswer = (state) => {
-  return state[NAME_SPACE].activeAnswer;
+  return state.activeAnswer;
 };
 
 export const getActiveAnswerData = createSelector(
@@ -56,18 +53,18 @@ export const getActiveAnswerData = createSelector(
 )
 
 export const getScore = (state) => {
-  return state[NAME_SPACE].score;
+  return state.score;
 };
 
 export const getIsCorrectAnswer = (state) => {
-  return state[NAME_SPACE].isCorrectAnswer;
+  return state.isCorrectAnswer;
 };
 
 export const getIsStartLevel = (state) => {
-  return state[NAME_SPACE].isStartLevel;
+  return state.isStartLevel;
 };
 
 
 export const getCorrectAnswer = (state) => {
-  return state[NAME_SPACE].correctAnswer;
+  return state.correctAnswer;
 };

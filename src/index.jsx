@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import {Provider} from "react-redux";
 
 import App from './App.tsx';
-import reducer from "./reducer/index.js";
+import {reducer} from "./reducer/main/main";
 import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 
 const init = () => {
@@ -16,7 +16,7 @@ const init = () => {
   const persistConfig = {
     key: 'root',
     storage: storage,
-    whitelist: ['questions']
+    whitelist: ['gameScore']
   }
 
   const persistedReducer = persistReducer(persistConfig, reducer)

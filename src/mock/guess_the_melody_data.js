@@ -271,7 +271,7 @@ const questions = [
         name: 'Contra',
         species: '1988 год, Konami',
         description: 'Прибывшие на метеорите пришельцы грозятся уничтожить Землю через подконтрольную организацию «Красный сокол», и только бойцы элитного спецотряда могут остановить наглых инопланетян вместе с их приспешниками.',
-        image: './static/media/game_data/Dandy_games/Contra.jpg',
+        image: './src/assets/game_data/Dandy_games/Contra.jpg',
         audio: './static/media/game_data/Dandy_games/Contra.mp3'
       },
       {
@@ -279,7 +279,7 @@ const questions = [
         name: 'Chip n Dale Rescue Rangers',
         species: '1990 и 1993 годы, Capcom',
         description: 'Вот, снова Capcom. И снова — одна из самых лучших игр для «Денди», точнее даже две игры. «Чип и Дейл» удивительно четко попали в мультипликационный образ. Даже музыка была точь-в-точь как в сериале.',
-        image: './static/media/game_data/Dandy_games/Chip.png',
+        image: './src/assets/game_data/Dandy_games/Chip.png',
         audio: './static/media/game_data/Dandy_games/Chip.mp3'
       },
       {

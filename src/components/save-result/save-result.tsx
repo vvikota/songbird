@@ -1,16 +1,22 @@
 import * as React from 'react';
 import './save-result.css';
 
-import {getScore} from "../../reducer/main/selectors";
+import {getScore, getGameScore} from "../../reducer/main/selectors";
 import {stateInterface} from "../../types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/main/main";
 
+interface currentScoreRow {
+  name: string
+  score: number
+}
+
 interface Props {
-  saveResult: (name: string, currentScore: number) => void
+  saveResult: (name: string, currentScore: number, currentScoreList: currentScoreRow[]) => void
   changeScoreShow: () => void
   changeSaveResultShow: () => void
   currentScore: number
+  currentScoreList: currentScoreRow[]
 }
 
 interface State {
@@ -37,13 +43,15 @@ class SaveResult extends React.PureComponent<Props, State> {
       saveResult,
       changeSaveResultShow,
       changeScoreShow,
-      currentScore
+      currentScore,
+      currentScoreList,
     } = this.props;
 
     const {inputValue} = this.state
   
     const saveResultScore = () => {
-      saveResult(inputValue, currentScore)
+      console.log(currentScoreList)
+      saveResult(inputValue, currentScore, currentScoreList)
       changeSaveResultShow()
       changeScoreShow()
     }
@@ -61,12 +69,15 @@ class SaveResult extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state: stateInterface) => (
-  {currentScore : getScore(state)}
+  {
+    currentScore : getScore(state),
+    currentScoreList: getGameScore(state),
+  }
 );
 
 const mapDispatchToProps = (dispatch: any) => ({
-  saveResult: (name: string, currentScore: number) => {
-    dispatch(ActionCreator.saveResultToGameScore(name, currentScore))
+  saveResult: (name: string, currentScore: number, currentScoreList: currentScoreRow[]) => {
+    dispatch(ActionCreator.saveResultToGameScore(name, currentScore, currentScoreList))
   },
 
   changeSaveResultShow: () => {

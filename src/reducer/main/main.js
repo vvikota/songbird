@@ -27,10 +27,11 @@ const ActionType = {
 }
 
 const ActionCreator = {
-  saveResultToGameScore: (userName, currentScore) => {
+  saveResultToGameScore: (userName, currentUserScore, currentScoreList) => {
     
-    let newScore = initialState.gameScore
-    newScore.push({name: userName, score: currentScore})
+    let newScore = currentScoreList;
+
+    newScore.push({name: userName, score: currentUserScore})
 
     return {
       type: ActionType.SAVE_RESULT_TO_GAME_SCORE,
@@ -140,7 +141,6 @@ const reducer = (state = initialState , action) => {
     default: 
       // do nothing
   }
-
   return state;
 };
 
