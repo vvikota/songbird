@@ -3,7 +3,7 @@ import questions from "../../mock/guess_the_melody_data";
 const initialState = {
   activeAnswer: ``,
   correctAnswer: ``,
-  currenCategory: 5,
+  currenCategory: 0,
   gameScore: [],
   isCorrectAnswer: false,
   isStartLevel: true,
