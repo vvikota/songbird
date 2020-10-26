@@ -85,58 +85,76 @@ const ActionCreator = {
 
 const reducer = (state = initialState , action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CURRENT_CATEGORY: return Object.assign({}, state, {
-      currenCategory: state.currenCategory + action.payload,
-      isStartLevel: true,
-      isCorrectAnswer: false,
-    });
+    case ActionType.CHANGE_CURRENT_CATEGORY:
+      return {
+        ...state,
+        currenCategory: state.currenCategory + action.payload,
+        isStartLevel: true,
+        isCorrectAnswer: false,
+      };
 
-    case ActionType.LOAD_QUESTIONS: return Object.assign({}, state, {
-      questions: action.payload
-    });
+    case ActionType.LOAD_QUESTIONS:
+      return {
+        ...state,
+        questions: action.payload
+      };
 
-    case ActionType.CHOOSE_VARIANT: return Object.assign({}, state, {
-      isStartLevel: false,
-      activeAnswer: action.payload
-    });
+    case ActionType.CHOOSE_VARIANT:
+      return {
+        ...state,
+        isStartLevel: false,
+        activeAnswer: action.payload
+      };
 
-    case ActionType.LOAD_CORRECT_ANSWER: return Object.assign({}, state, {
-      correctAnswer: action.payload
-    });
+    case ActionType.LOAD_CORRECT_ANSWER:
+      return {
+        ...state,
+        correctAnswer: action.payload
+      };
 
-    case ActionType.CHANGE_ANSWER_STATUS: return Object.assign({}, state, {
-      isCorrectAnswer: true
-    });
+    case ActionType.CHANGE_ANSWER_STATUS:
+      return {
+        ...state,
+        isCorrectAnswer: true
+    };
 
-    case ActionType.INCREMENT_SCORE: return Object.assign({}, state, {
-      score: state.score + action.payload,
-    });
+    case ActionType.INCREMENT_SCORE:
+      return{
+        ...state,
+        score: state.score + action.payload,
+      };
 
-    case ActionType.RESET_GAME: return Object.assign({}, state, {
-      currenCategory: 0,
-      score: 0,
-      isCorrectAnswer: false,
-      isStartLevel: true,
-      activeAnswer: ``,
-      correctAnswer: ``,
-    });
+    case ActionType.RESET_GAME:
+      return{
+        ...state,
+        currenCategory: 0,
+        score: 0,
+        isCorrectAnswer: false,
+        isStartLevel: true,
+        activeAnswer: ``,
+        correctAnswer: ``,
+      };
 
-    case ActionType.CHANGE_SCORE_SHOW_STATUS: return Object.assign({}, state, {
-      showScore: !state.showScore,
-    });
+    case ActionType.CHANGE_SCORE_SHOW_STATUS:
+      return{
+        ...state,
+        showScore: !state.showScore,
+      };
 
-    case ActionType.CHANGE_SAVE_RESULT_SHOW_STATUS: return Object.assign({}, state, {
-      showSaveResult: !state.showSaveResult,
-    })
+    case ActionType.CHANGE_SAVE_RESULT_SHOW_STATUS:
+      return {
+        ...state,
+        showSaveResult: !state.showSaveResult,
+      };
 
-    case ActionType.SAVE_RESULT_TO_GAME_SCORE: return Object.assign({}, state, {
-      gameScore: action.payload
-    })
+    case ActionType.SAVE_RESULT_TO_GAME_SCORE:
+      return {
+        ...state,
+        gameScore: action.payload
+      };
 
-    default: 
-      // do nothing
+    default: return state;
   }
-  return state;
 };
 
 export {reducer, ActionCreator};

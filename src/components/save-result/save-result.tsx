@@ -50,7 +50,6 @@ class SaveResult extends React.PureComponent<Props, State> {
     const {inputValue} = this.state
   
     const saveResultScore = () => {
-      console.log(currentScoreList)
       saveResult(inputValue, currentScore, currentScoreList)
       changeSaveResultShow()
       changeScoreShow()
