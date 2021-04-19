@@ -12,7 +12,9 @@ import {reducer} from "./reducer/main/main";
 import {ActionCreator as MainActionCreator} from "./reducer/main/main";
 
 const init = () => {
-  console.log(2)
+
+  console.log(1);
+
   const persistConfig = {
     key: 'root',
     storage: storage,
